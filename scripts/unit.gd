@@ -1,18 +1,21 @@
-extends Area2D
+extends Node2D
 class_name Unit
 
 signal arrived
 signal returned_home
 
 @export var speed: float = 40.0  # ajuste como quiser (px/s)
+@onready var label: Label = $Label
 
 var _home_pos: Vector2
 var _target_pos: Vector2
 var _moving: bool = false
 var _returning: bool = false
+var members: Array = []
 
 func _ready() -> void:
 	_home_pos = global_position
+	label.text = ", ".join(members.map(func(m): return m["name"]))
 
 func go_to(world_pos: Vector2) -> void:
 	_target_pos = world_pos
@@ -39,6 +42,7 @@ func _process(delta: float) -> void:
 		set_process(false)
 
 		if _returning:
+			queue_free()
 			returned_home.emit()
 		else:
 			arrived.emit()
