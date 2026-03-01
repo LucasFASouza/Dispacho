@@ -4,25 +4,17 @@ extends Node2D
 @onready var missions_root: Node2D = $Missions
 @onready var units_root: Node2D = $Units
 
-@export var resolve_seconds: float = 1.5
+@export var resolve_seconds: float = 3.0
+
+signal member_availability_changed
 
 var _selected_mission: Mission = null
 var members = [
-	{
-		"name": ":)",
-	},
-	{
-		"name": ";|",
-	},
-	{
-		"name": ":P",
-	},
-	{
-		"name": "B)",
-	},
-	{
-		"name": "XD",
-	}
+	{ "name": ":)", "available": true },
+	{ "name": ";|", "available": true },
+	{ "name": ":P", "available": true },
+	{ "name": "B)", "available": true },
+	{ "name": "XD", "available": true },
 ]
 
 var UnitScene: PackedScene = preload("res://scenes/unit.tscn")
@@ -64,6 +56,8 @@ func _on_send_pressed(unit_members: Array) -> void:
 
 	mission.set_interactable(false)
 	unit.go_to(mission.global_position)
+	_set_members_available(unit_members, false)
+	unit.returned_home.connect(_on_unit_returned_home.bind(unit_members))
 
 
 func _on_unit_arrived(unit: Unit, mission: Mission) -> void:
@@ -71,3 +65,13 @@ func _on_unit_arrived(unit: Unit, mission: Mission) -> void:
 		await get_tree().create_timer(resolve_seconds).timeout
 		mission.queue_free()
 	unit.go_home()
+
+
+func _on_unit_returned_home(unit_members: Array) -> void:
+	_set_members_available(unit_members, true)
+
+
+func _set_members_available(unit_members: Array, available: bool) -> void:
+	for m in unit_members:
+		m["available"] = available
+	member_availability_changed.emit()
