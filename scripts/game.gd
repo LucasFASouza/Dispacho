@@ -10,11 +10,11 @@ signal member_availability_changed
 
 var _selected_mission: Mission = null
 var members = [
-	{ "name": ":)", "available": true },
-	{ "name": ";|", "available": true },
-	{ "name": ":P", "available": true },
-	{ "name": "B)", "available": true },
-	{ "name": "XD", "available": true },
+  { "name": "Bigfoot",    "available": true, "scores": {"STR": 3, "DEX": 2, "INT": 2, "CHA": 1, "CON": 1}},
+  { "name": "Mothman",    "available": true, "scores": {"STR": 1, "DEX": 3, "INT": 2, "CHA": 2, "CON": 1}},
+  { "name": "Gilledman",  "available": true, "scores": {"STR": 1, "DEX": 1, "INT": 3, "CHA": 2, "CON": 2}},
+  { "name": "Chupacabra", "available": true, "scores": {"STR": 2, "DEX": 1, "INT": 1, "CHA": 3, "CON": 2}},
+  { "name": "Nessie",     "available": true, "scores": {"STR": 2, "DEX": 2, "INT": 1, "CHA": 1, "CON": 3}},
 ]
 
 var UnitScene: PackedScene = preload("res://scenes/unit.tscn")

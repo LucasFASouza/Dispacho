@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://4qnwbla4lwph"]
+
+[ext_resource type="Script" uid="uid://qrhjx8roui3i" path="res://scripts/att_container.gd" id="1_wauk2"]
+
+[node name="AttContainer" type="VBoxContainer" unique_id=188853264]
+size_flags_horizontal = 3
+script = ExtResource("1_wauk2")
+
+[node name="AttText" type="HBoxContainer" parent="." unique_id=568377736]
+layout_mode = 2
+
+[node name="AttLabel" type="Label" parent="AttText" unique_id=18530820]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Att"
+
+[node name="AttValue" type="Label" parent="AttText" unique_id=1616589482]
+layout_mode = 2
+text = "2"
+
+[node name="AttBar" type="ProgressBar" parent="." unique_id=813997147]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+max_value = 10.0
+step = 1.0
+value = 10.0
+show_percentage = false
