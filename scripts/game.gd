@@ -61,7 +61,7 @@ func _on_send_pressed(unit_members: Array) -> void:
 func _on_unit_arrived(unit: Unit, mission: Mission) -> void:
 	if is_instance_valid(mission):
 		await get_tree().create_timer(resolve_seconds).timeout
-		mission.queue_free()
+		mission.resolve(unit.members)
 	unit.go_home()
 
 

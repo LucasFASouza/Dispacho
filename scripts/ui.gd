@@ -5,7 +5,7 @@ signal closed
 signal send_pressed(members: Array)
 
 @onready var mission_menu: MissionMenu = $MarginContainer/VBoxContainer/MissionMenu
-\
+
 func _ready() -> void:
 	hide_overlay_silent()
 	mission_menu.send_pressed.connect(func(members): send_pressed.emit(members))
