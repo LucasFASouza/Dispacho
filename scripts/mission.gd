@@ -6,8 +6,11 @@ signal selected(text: String)
 @export var mission_text := "Parece que os sacos de ração acabaram mais rápido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta.\nTomem cuidado, os sacos podem ser pesados, e podem atrair atenção indesejada de seres acima."
 @export var total_score_threshold: int = 18
 @export var attribute_thresholds: Dictionary = {}
+@export var feedback_seconds: float = 5.0
 
 @onready var collision: CollisionShape2D = $CollisionShape2D
+
+@onready var label: Label = $Label
 
 var _interactable := true
 
@@ -17,7 +20,7 @@ func set_interactable(v: bool) -> void:
 	if collision:
 		collision.disabled = !v
 
-func resolve(members: Array) -> void:
+func resolve(members: Array) -> bool:
 	var totals := {}
 	for member in members:
 		for attr in member["scores"]:
@@ -35,15 +38,17 @@ func resolve(members: Array) -> void:
 				break
 
 	if success:
-		print("SUCCESS: ", mission_text.substr(0, 30), "...")
+		label.text = ":D"
 	else:
-		print("FAIL: ", mission_text.substr(0, 30), "...")
+		label.text = "X("
 
-	queue_free()
+	get_tree().create_timer(feedback_seconds).timeout.connect(queue_free)
+	return success
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if !_interactable:
 		return
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		label.text = "..."
 		selected.emit(mission_text)

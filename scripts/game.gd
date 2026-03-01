@@ -5,27 +5,63 @@ extends Node2D
 @onready var units_root: Node2D = $Units
 
 @export var resolve_seconds: float = 3.0
+@export var rest_seconds: float = 5.0
+@export var recover_seconds: float = 12.0
 
 signal member_availability_changed
+signal member_state_changed
 
 var _selected_mission: Mission = null
 var members = [
-  { "name": "Bigfoot",    "available": true, "scores": {"STR": 3, "DEX": 2, "INT": 2, "CHA": 1, "CON": 1}},
-  { "name": "Mothman",    "available": true, "scores": {"STR": 1, "DEX": 3, "INT": 2, "CHA": 2, "CON": 1}},
-  { "name": "Gilledman",  "available": true, "scores": {"STR": 1, "DEX": 1, "INT": 3, "CHA": 2, "CON": 2}},
-  { "name": "Chupacabra", "available": true, "scores": {"STR": 2, "DEX": 1, "INT": 1, "CHA": 3, "CON": 2}},
-  { "name": "Nessie",     "available": true, "scores": {"STR": 2, "DEX": 2, "INT": 1, "CHA": 1, "CON": 3}},
+  { "name": "Bigfoot",    "available": true, "state": "READY", "scores": {"STR": 3, "DEX": 2, "INT": 2, "CHA": 1, "CON": 1}},
+  { "name": "Mothman",    "available": true, "state": "READY", "scores": {"STR": 1, "DEX": 3, "INT": 2, "CHA": 2, "CON": 1}},
+  { "name": "Gilledman",  "available": true, "state": "READY", "scores": {"STR": 1, "DEX": 1, "INT": 3, "CHA": 2, "CON": 2}},
+  { "name": "Chupacabra", "available": true, "state": "READY", "scores": {"STR": 2, "DEX": 1, "INT": 1, "CHA": 3, "CON": 2}},
+  { "name": "Nessie",     "available": true, "state": "READY", "scores": {"STR": 2, "DEX": 2, "INT": 1, "CHA": 1, "CON": 3}},
 ]
 
 var UnitScene: PackedScene = preload("res://scenes/unit.tscn")
+var MissionScene: PackedScene = preload("res://scenes/mission.tscn")
+
+var mission_queue := [
+	{
+		"spawn_time": 2.0,
+		"position": Vector2(-64, -40),
+		"text": "Parece que os sacos de ra\u00e7\u00e3o acabaram mais r\u00e1pido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta.",
+		"total_threshold": 6,
+		"attr_thresholds": {"STR": 3},
+	},
+	{
+		"spawn_time": 4.0,
+		"position": Vector2(64, 32),
+		"text": "Um viajante relatou ter visto luzes estranhas na floresta. Precisamos investigar antes que isso atraia curiosos indesejados.",
+		"total_threshold": 5,
+		"attr_thresholds": {"INT": 3},
+	},
+	{
+		"spawn_time": 10.0,
+		"position": Vector2(0, 48),
+		"text": "Os aldeoes estao em panico. Um som gutural ecoa do pântano toda meia-noite. Alguem precisa ir convencer eles de que é inofensivo.",
+		"total_threshold": 7,
+		"attr_thresholds": {"CHA": 4},
+	},
+]
 
 func _ready() -> void:
-	for n in missions_root.get_children():
-		if n is Mission:
-			(n as Mission).selected.connect(_on_mission_selected.bind(n))
-
 	ui.closed.connect(_on_ui_closed)
 	ui.send_pressed.connect(_on_send_pressed)
+	for data in mission_queue:
+		get_tree().create_timer(data["spawn_time"]).timeout.connect(_spawn_mission.bind(data))
+
+
+func _spawn_mission(data: Dictionary) -> void:
+	var mission := MissionScene.instantiate() as Mission
+	mission.mission_text = data["text"]
+	mission.total_score_threshold = data["total_threshold"]
+	mission.attribute_thresholds = data["attr_thresholds"]
+	mission.position = data["position"]
+	missions_root.add_child(mission)
+	mission.selected.connect(_on_mission_selected.bind(mission))
 	
 
 func _on_mission_selected(text: String, mission: Mission) -> void:
@@ -54,22 +90,30 @@ func _on_send_pressed(unit_members: Array) -> void:
 
 	mission.set_interactable(false)
 	unit.go_to(mission.global_position)
-	_set_members_available(unit_members, false)
-	unit.returned_home.connect(_on_unit_returned_home.bind(unit_members))
+	_set_member_states(unit_members, "MOVING")
 
 
 func _on_unit_arrived(unit: Unit, mission: Mission) -> void:
+	_set_member_states(unit.members, "IN_MISSION")
+	var success := false
 	if is_instance_valid(mission):
 		await get_tree().create_timer(resolve_seconds).timeout
-		mission.resolve(unit.members)
+		success = mission.resolve(unit.members)
+	_set_member_states(unit.members, "RETURNING")
+	unit.returned_home.connect(_on_unit_returned_home.bind(unit.members, success))
 	unit.go_home()
 
 
-func _on_unit_returned_home(unit_members: Array) -> void:
-	_set_members_available(unit_members, true)
+func _on_unit_returned_home(unit_members: Array, success: bool) -> void:
+	var state := "RESTING" if success else "RECOVERING"
+	var wait := rest_seconds if success else recover_seconds
+	_set_member_states(unit_members, state)
+	get_tree().create_timer(wait).timeout.connect(func(): _set_member_states(unit_members, "READY"))
 
 
-func _set_members_available(unit_members: Array, available: bool) -> void:
+func _set_member_states(unit_members: Array, state: String) -> void:
 	for m in unit_members:
-		m["available"] = available
+		m["state"] = state
+		m["available"] = (state == "READY")
 	member_availability_changed.emit()
+	member_state_changed.emit()

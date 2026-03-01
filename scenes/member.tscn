@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dl645s6d1lov3"]
+
+[node name="Member" type="VBoxContainer" unique_id=1885863488]
+size_flags_vertical = 3
+
+[node name="MemberLabel" type="Label" parent="." unique_id=1811521827]
+layout_mode = 2
+text = "Member"
+
+[node name="MemberState" type="Label" parent="." unique_id=1207284089]
+layout_mode = 2
+text = "State"

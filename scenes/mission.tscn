@@ -26,21 +26,22 @@ size_flags_vertical = 3
 mouse_filter = 2
 color = Color(0.9019608, 0.28235295, 0.18039216, 1)
 
-[node name="Label" type="Label" parent="Color" unique_id=1877949970]
-layout_mode = 1
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1707293319]
+shape = SubResource("RectangleShape2D_lnu2h")
+
+[node name="Label" type="Label" parent="." unique_id=1877949970]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 14.85714
-offset_bottom = 15.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 18.857141
+offset_bottom = 19.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.35, 0.35)
 text = "!"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1707293319]
-shape = SubResource("RectangleShape2D_lnu2h")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
