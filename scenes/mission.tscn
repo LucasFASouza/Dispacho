@@ -14,10 +14,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(4, 4)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
@@ -38,7 +41,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1707293319]
-position = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_lnu2h")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

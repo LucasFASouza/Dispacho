@@ -18,6 +18,11 @@ func _ready() -> void:
 
 func show_mission(text: String) -> void:
 	mission_label.text = text
+
+	for child in unit_selector.get_children():
+		if child is CheckButton:
+			child.button_pressed = false
+
 	visible = true
 
 func hide_mission() -> void:
