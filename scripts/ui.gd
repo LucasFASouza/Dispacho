@@ -4,7 +4,6 @@ class_name UIOverlay
 signal closed
 signal send_pressed(members: Array)
 
-@onready var bg: ColorRect = $BG
 @onready var mission_menu: MissionMenu = $MarginContainer/VBoxContainer/MissionMenu
 \
 func _ready() -> void:
@@ -13,12 +12,10 @@ func _ready() -> void:
 
 func show_mission(text: String) -> void:
 	visible = true
-	bg.visible = true
 	mission_menu.show_mission(text)
 
 func hide_overlay_silent() -> void:
 	visible = false
-	bg.visible = false
 	mission_menu.hide_mission()
 
 func _on_back_button_pressed() -> void:

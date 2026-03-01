@@ -26,9 +26,7 @@ func _ready() -> void:
 
 	ui.closed.connect(_on_ui_closed)
 	ui.send_pressed.connect(_on_send_pressed)
-
-
-
+	
 
 func _on_mission_selected(text: String, mission: Mission) -> void:
 	_selected_mission = mission
