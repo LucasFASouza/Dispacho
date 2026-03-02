@@ -4,7 +4,6 @@ extends Node2D
 @onready var missions_root: Node2D = $Missions
 @onready var units_root: Node2D = $Units
 
-@export var resolve_seconds: float = 3.0
 @export var rest_seconds: float = 5.0
 @export var recover_seconds: float = 12.0
 
@@ -32,14 +31,14 @@ var mission_queue := [
 		"attr_thresholds": {"STR": 3},
 	},
 	{
-		"spawn_time": 4.0,
+		"spawn_time": 8.0,
 		"position": Vector2(64, 32),
 		"text": "Um viajante relatou ter visto luzes estranhas na floresta. Precisamos investigar antes que isso atraia curiosos indesejados.",
 		"total_threshold": 5,
 		"attr_thresholds": {"INT": 3},
 	},
 	{
-		"spawn_time": 10.0,
+		"spawn_time": 15.0,
 		"position": Vector2(0, 48),
 		"text": "Os aldeoes estao em panico. Um som gutural ecoa do pântano toda meia-noite. Alguem precisa ir convencer eles de que é inofensivo.",
 		"total_threshold": 7,
@@ -95,10 +94,18 @@ func _on_send_pressed(unit_members: Array) -> void:
 
 func _on_unit_arrived(unit: Unit, mission: Mission) -> void:
 	_set_member_states(unit.members, "IN_MISSION")
-	var success := false
 	if is_instance_valid(mission):
-		await get_tree().create_timer(resolve_seconds).timeout
-		success = mission.resolve(unit.members)
+		mission.resolved.connect(_on_mission_resolved.bind(unit))
+		mission.start_resolve(unit.members)
+	else:
+		_finish_unit(unit, false)
+
+
+func _on_mission_resolved(success: bool, unit: Unit) -> void:
+	_finish_unit(unit, success)
+
+
+func _finish_unit(unit: Unit, success: bool) -> void:
 	_set_member_states(unit.members, "RETURNING")
 	unit.returned_home.connect(_on_unit_returned_home.bind(unit.members, success))
 	unit.go_home()
@@ -107,8 +114,28 @@ func _on_unit_arrived(unit: Unit, mission: Mission) -> void:
 func _on_unit_returned_home(unit_members: Array, success: bool) -> void:
 	var state := "RESTING" if success else "RECOVERING"
 	var wait := rest_seconds if success else recover_seconds
+	for m in unit_members:
+		m["countdown"] = wait
 	_set_member_states(unit_members, state)
-	get_tree().create_timer(wait).timeout.connect(func(): _set_member_states(unit_members, "READY"))
+	_tick_countdown(unit_members)
+
+
+func _tick_countdown(unit_members: Array) -> void:
+	get_tree().create_timer(1.0).timeout.connect(func():
+		var any_left := false
+		for m in unit_members:
+			if m["state"] == "RESTING" or m["state"] == "RECOVERING":
+				m["countdown"] -= 1
+				if m["countdown"] <= 0:
+					m["state"] = "READY"
+					m["available"] = true
+				else:
+					any_left = true
+		member_availability_changed.emit()
+		member_state_changed.emit()
+		if any_left:
+			_tick_countdown(unit_members)
+	)
 
 
 func _set_member_states(unit_members: Array, state: String) -> void:

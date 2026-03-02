@@ -30,7 +30,11 @@ func _ready() -> void:
 func _refresh_member_states() -> void:
 	var game: Node = get_tree().get_root().get_node("Game")
 	for i in game.members.size():
-		_member_state_labels[i].text = game.members[i]["state"]
+		var m: Dictionary = game.members[i]
+		var text: String = m["state"]
+		if (m["state"] == "RESTING" or m["state"] == "RECOVERING") and m.get("countdown", 0) > 0:
+			text += " - " + str(int(m["countdown"])) + "s"
+		_member_state_labels[i].text = text
 
 func show_mission(text: String) -> void:
 	menus.visible = true
