@@ -45,8 +45,7 @@ func _run() -> void:
 		entry.data       = load(data_path)
 		entry.spawn_time = d.get("spawn_time", 2.0)
 		entry.deadline   = d.get("deadline", 30.0)
-		var pos: Array   = d.get("position", [0, 0])
-		entry.position   = Vector2(pos[0], pos[1])
+		entry.location_id = d.get("location", "")
 		queue.entries.append(entry)
 
 	var queue_err := ResourceSaver.save(queue, QUEUE_PATH)

@@ -1,8 +1,10 @@
 extends Node2D
 
 @onready var ui: UIOverlay = $UI
-@onready var missions_root: Node2D = $Missions
+@onready var locations_root: Node2D = $Locations
 @onready var units_root: Node2D = $Units
+
+var _locations: Dictionary = {}
 
 @export var rest_seconds: float = 5.0
 @export var recover_seconds: float = 12.0
@@ -27,6 +29,9 @@ func _ready() -> void:
 	if mission_queue_res == null:
 		push_error("Game: mission_queue_res is not assigned. Run build_missions.gd and assign data/missions/queue.tres in the Inspector.")
 		return
+	for child in locations_root.get_children():
+		if child is Location:
+			_locations[child.location_id] = child
 	for data: MemberData in members_res:
 		members.append({
 			"name": data.member_name,
@@ -53,9 +58,14 @@ func _process(delta: float) -> void:
 
 
 func _spawn_mission(entry: MissionQueueEntry) -> void:
-	var mission := MissionScene.instantiate() as Mission
-	mission.init_from_resource(entry)
-	missions_root.add_child(mission)
+	var loc: Location = _locations.get(entry.location_id)
+	if loc == null:
+		push_error("Location not found: " + entry.location_id)
+		return
+	var mission := loc.try_spawn(entry, MissionScene)
+	if mission == null:
+		push_warning("Location occupied, skipping mission: " + entry.location_id)
+		return
 	mission.selected.connect(_on_mission_selected)
 	
 

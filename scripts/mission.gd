@@ -64,7 +64,6 @@ func init_from_resource(entry: MissionQueueEntry) -> void:
 	missed_text = d.missed_text
 	attribute_thresholds = d.attr_thresholds
 	deadline_seconds = entry.deadline
-	position = entry.position
 
 func set_interactable(v: bool) -> void:
 	_interactable = v

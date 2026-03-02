@@ -10,6 +10,7 @@
 [ext_resource type="Resource" path="res://data/members/gilledman.tres" id="6_kvuet"]
 [ext_resource type="Resource" path="res://data/members/mothman.tres" id="7_trtic"]
 [ext_resource type="Resource" path="res://data/members/nessie.tres" id="8_ir15t"]
+[ext_resource type="Script" path="res://scripts/location.gd" id="9_loc"]
 
 [node name="Game" type="Node2D" unique_id=2123722845]
 script = ExtResource("1_yqjtg")
@@ -42,7 +43,236 @@ zoom = Vector2(5, 5)
 
 [node name="Missions" type="Node2D" parent="." unique_id=383012207]
 
+[node name="Locations" type="Node2D" parent="." unique_id=1532545713]
+
+[node name="Lago" type="Node2D" parent="Locations" unique_id=124179121]
+script = ExtResource("9_loc")
+location_id = "lago"
+position = Vector2(-79, -31)
+
+[node name="Color2" type="ColorRect" parent="Locations/Lago" unique_id=53865841]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(4, 4)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.31500003, 0.33449998, 0.9, 1)
+
+[node name="Label" type="Label" parent="Locations/Lago" unique_id=463607273]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -9.0
+offset_top = -11.999999
+offset_right = 42.42857
+offset_bottom = 11.000001
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.35, 0.35)
+text = "Lago"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pântano" type="Node2D" parent="Locations" unique_id=1664747755]
+script = ExtResource("9_loc")
+location_id = "pantano"
+position = Vector2(86, 24)
+
+[node name="Color2" type="ColorRect" parent="Locations/Pântano" unique_id=176292517]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(4, 4)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.31500003, 0.33449998, 0.9, 1)
+
+[node name="Label" type="Label" parent="Locations/Pântano" unique_id=744550629]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.000002
+offset_top = -13.000001
+offset_right = 54.0
+offset_bottom = 9.999999
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.35, 0.35)
+text = "Pântano"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Mina" type="Node2D" parent="Locations" unique_id=1895814741]
+script = ExtResource("9_loc")
+location_id = "mina"
+position = Vector2(87, -31)
+
+[node name="Color2" type="ColorRect" parent="Locations/Mina" unique_id=348919400]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(4, 4)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.31500003, 0.33449998, 0.9, 1)
+
+[node name="Label" type="Label" parent="Locations/Mina" unique_id=1825082257]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -27.000006
+offset_top = -17.0
+offset_right = 116.428566
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.35, 0.35)
+text = "Mina Abandonada"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Ruinas" type="Node2D" parent="Locations" unique_id=512279702]
+script = ExtResource("9_loc")
+location_id = "ruinas"
+position = Vector2(-75, 25)
+
+[node name="Color2" type="ColorRect" parent="Locations/Ruinas" unique_id=198001929]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(4, 4)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.31500003, 0.33449998, 0.9, 1)
+
+[node name="Label" type="Label" parent="Locations/Ruinas" unique_id=1165482596]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -27.000006
+offset_top = -17.0
+offset_right = 116.428566
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.35, 0.35)
+text = "Ruinas"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Acampamento" type="Node2D" parent="Locations" unique_id=248916954]
+script = ExtResource("9_loc")
+location_id = "acampamento"
+position = Vector2(1, 37)
+
+[node name="Color2" type="ColorRect" parent="Locations/Acampamento" unique_id=1489192965]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(4, 4)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.31500003, 0.33449998, 0.9, 1)
+
+[node name="Label" type="Label" parent="Locations/Acampamento" unique_id=373568217]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -27.000006
+offset_top = -17.0
+offset_right = 116.428566
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.35, 0.35)
+text = "Acampamento"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Floresta" type="Node2D" parent="Locations" unique_id=2052808448]
+script = ExtResource("9_loc")
+location_id = "floresta"
+position = Vector2(1, -46)
+
+[node name="Color2" type="ColorRect" parent="Locations/Floresta" unique_id=235939621]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(4, 4)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.31500003, 0.33449998, 0.9, 1)
+
+[node name="Label" type="Label" parent="Locations/Floresta" unique_id=829125586]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -27.000006
+offset_top = -17.0
+offset_right = 116.428566
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.35, 0.35)
+text = "Floresta"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [node name="HQ" type="Node2D" parent="." unique_id=725684295]
+position = Vector2(0, -4)
 
 [node name="Color" type="ColorRect" parent="HQ" unique_id=20712583]
 anchors_preset = 8
@@ -65,6 +295,7 @@ color = Color(0.8117647, 0.7764706, 0.72156864, 1)
 script = ExtResource("3_lnu2h")
 
 [node name="Menus" type="Control" parent="UI" unique_id=813329172]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -149,12 +380,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 48
-theme_override_constants/margin_top = 48
-theme_override_constants/margin_right = 48
-theme_override_constants/margin_bottom = 48
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
 
-[node name="Members" type="VBoxContainer" parent="UI/GUI" unique_id=1001872452]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GUI" unique_id=993963314]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="UI/GUI/VBoxContainer" unique_id=502482847]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Members" type="HBoxContainer" parent="UI/GUI/VBoxContainer" unique_id=1412991076]
 layout_mode = 2
 
 [connection signal="pressed" from="UI/Menus/MarginContainer/MissionMenu/BackButton" to="UI" method="_on_back_button_pressed"]

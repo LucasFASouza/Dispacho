@@ -9,7 +9,7 @@ signal ok_pressed(mission: Mission)
 @onready var menus: Control = $Menus
 @onready var mission_menu: MissionMenu = $Menus/MarginContainer/MissionMenu
 @onready var gui: MarginContainer = $GUI
-@onready var members_container: VBoxContainer = $GUI/Members
+@onready var members_container: HBoxContainer = $GUI/VBoxContainer/Members
 
 var MemberUIScene: PackedScene = preload("res://scenes/member.tscn")
 
