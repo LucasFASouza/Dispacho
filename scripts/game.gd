@@ -12,11 +12,11 @@ signal member_state_changed
 
 var _selected_mission: Mission = null
 var members = [
-  { "name": "Bigfoot",    "available": true, "state": "READY", "scores": {"STR": 3, "DEX": 2, "INT": 2, "CHA": 1, "CON": 1}},
-  { "name": "Mothman",    "available": true, "state": "READY", "scores": {"STR": 1, "DEX": 3, "INT": 2, "CHA": 2, "CON": 1}},
-  { "name": "Gilledman",  "available": true, "state": "READY", "scores": {"STR": 1, "DEX": 1, "INT": 3, "CHA": 2, "CON": 2}},
-  { "name": "Chupacabra", "available": true, "state": "READY", "scores": {"STR": 2, "DEX": 1, "INT": 1, "CHA": 3, "CON": 2}},
-  { "name": "Nessie",     "available": true, "state": "READY", "scores": {"STR": 2, "DEX": 2, "INT": 1, "CHA": 1, "CON": 3}},
+  { "name": "Bigfoot",    "available": true, "state": "READY", "scores": {"STR": 3, "DEX": 2, "INT": 1, "CHA": 1, "CON": 0}},
+  { "name": "Mothman",    "available": true, "state": "READY", "scores": {"STR": 0, "DEX": 3, "INT": 2, "CHA": 1, "CON": 1}},
+  { "name": "Gilledman",  "available": true, "state": "READY", "scores": {"STR": 1, "DEX": 0, "INT": 3, "CHA": 2, "CON": 1}},
+  { "name": "Chupacabra", "available": true, "state": "READY", "scores": {"STR": 1, "DEX": 1, "INT": 0, "CHA": 3, "CON": 2}},
+  { "name": "Nessie",     "available": true, "state": "READY", "scores": {"STR": 2, "DEX": 1, "INT": 1, "CHA": 0, "CON": 3}},
 ]
 
 var UnitScene: PackedScene = preload("res://scenes/unit.tscn")
@@ -27,26 +27,29 @@ var mission_queue := [
 		"spawn_time": 2.0,
 		"deadline": 20.0,
 		"position": Vector2(-64, -40),
-		"text": "Parece que os sacos de ra\u00e7\u00e3o acabaram mais r\u00e1pido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta.",
-		"total_threshold": 6,
+		"mission_text": "Parece que os sacos de ra\u00e7\u00e3o acabaram mais r\u00e1pido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta. Tomem cuidado, os sacos podem ser pesados, e podem atrair atenção indesejada de seres acima.",
+		"success_text": "Os ursos-corujas terão seu jantar garantido pelos próximos dias.",
+		"error_text": "Parece que a carga foi derrubada pelo caminho... Alguém sabe se os ursos-coruja fazem dieta?",
 		"attr_thresholds": {"STR": 3},
 	},
 	{
-		"spawn_time": 8.0,
+		"spawn_time": 10.0,
 		"deadline": 20.0,
 		"position": Vector2(64, 32),
-		"text": "Um viajante relatou ter visto luzes estranhas na floresta. Precisamos investigar antes que isso atraia curiosos indesejados.",
-		"total_threshold": 5,
-		"attr_thresholds": {"INT": 3},
+		"mission_text": "Um ouriço azul está preso em cima de uma árvore. Ele parece estar com medo de descer. Precisamos de alguém para acalmá-lo e ajudá-lo a descer em segurança.",
+		"success_text": "O ouriço foi salvo e saiu correndo... estranhamento rápido.",
+		"error_text": "O ouriço foi assustado e entrou em super-nova. Ele não é mais um problema, mas também não é mais um ouriço.",
+		"attr_thresholds": {"CHA": 3},
 	},
 	{
-		"spawn_time": 15.0,
-		"deadline": 10.0,
+		"spawn_time": 18.0,
+		"deadline": 20.0,
 		"position": Vector2(0, 48),
-		"text": "Os aldeoes estao em panico. Um som gutural ecoa do pântano toda meia-noite. Alguem precisa ir convencer eles de que é inofensivo.",
-		"total_threshold": 7,
-		"attr_thresholds": {"CHA": 4},
-	},
+		"mission_text": "O som de goblins chorando por não conseguirem resolver cubos-mágicos está incomodando a fauna local. Como foi que eles conseguiram os cubos, aliás?",
+		"success_text": "O algoritmo de resolução de cubos-mágicos foi ensinado didáticamente. Paulo Freire estaria orgulhoso.",
+		"error_text": "Aparentemente aqueles objetos geométricos mágicos são difíceis de resolver para uma grande gama de espécies.",
+		"attr_thresholds": {"INT": 3},
+	}
 ]
 
 var _spawn_timers: Array = []
@@ -55,6 +58,7 @@ func _ready() -> void:
 	ui.closed.connect(_on_ui_closed)
 	ui.menu_opened.connect(_on_menu_opened)
 	ui.send_pressed.connect(_on_send_pressed)
+	ui.ok_pressed.connect(_on_ok_pressed)
 	for data in mission_queue:
 		_spawn_timers.append({"remaining": data["spawn_time"], "data": data})
 	set_process(true)
@@ -70,22 +74,33 @@ func _process(delta: float) -> void:
 
 func _spawn_mission(data: Dictionary) -> void:
 	var mission := MissionScene.instantiate() as Mission
-	mission.mission_text = data["text"]
-	mission.total_score_threshold = data["total_threshold"]
+	mission.mission_text = data["mission_text"]
+	mission.success_text = data.get("success_text", "")
+	mission.fail_text = data.get("error_text", "")
 	mission.attribute_thresholds = data["attr_thresholds"]
 	mission.deadline_seconds = data["deadline"]
 	mission.position = data["position"]
 	missions_root.add_child(mission)
-	mission.selected.connect(_on_mission_selected.bind(mission))
+	mission.selected.connect(_on_mission_selected)
 	
 
-func _on_mission_selected(text: String, mission: Mission) -> void:
-	_selected_mission = mission
-	ui.show_mission(text)
+func _on_mission_selected(mission: Mission) -> void:
+	if mission.done:
+		ui.show_review(mission)
+	else:
+		_selected_mission = mission
+		ui.show_active(mission)
 
 
 func _on_menu_opened() -> void:
 	get_tree().paused = true
+
+
+func _on_ok_pressed(mission: Mission) -> void:
+	ui.hide_overlay_silent()
+	get_tree().paused = false
+	if is_instance_valid(mission):
+		mission.confirm()
 
 
 func _on_ui_closed() -> void:

@@ -1,16 +1,16 @@
 extends Area2D
 class_name Mission
 
-signal selected(text: String)
+signal selected(mission: Mission)
+signal resolved(success: bool)
 
 @export var mission_text := "Parece que os sacos de ração acabaram mais rápido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta.\nTomem cuidado, os sacos podem ser pesados, e podem atrair atenção indesejada de seres acima."
-@export var total_score_threshold: int = 18
+@export var success_text: String = ""
+@export var fail_text: String = ""
 @export var attribute_thresholds: Dictionary = {}
-@export var resolve_seconds: float = 3.0
+@export var resolve_seconds: float = 5.0
 @export var feedback_seconds: float = 2.0
 @export var deadline_seconds: float = 30.0
-
-signal resolved(success: bool)
 
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var label: Label = $Label
@@ -21,13 +21,39 @@ var _resolve_countdown: float = 0.0
 var _resolving: bool = false
 var _deadline_countdown: float = 0.0
 var _deadline_active: bool = false
+
 var expired: bool = false
+var done: bool = false
+var resolved_success: bool = false
+var player_totals: Dictionary = {}
+
 
 func _ready() -> void:
 	if deadline_seconds > 0:
 		_deadline_countdown = deadline_seconds
 		_deadline_active = true
 		set_process(true)
+
+
+func _process(delta: float) -> void:
+	if _resolving:
+		_resolve_countdown -= delta
+		label.text = "..." + str(ceili(_resolve_countdown))
+		if _resolve_countdown <= 0.0:
+			_resolving = false
+			set_process(false)
+			_do_resolve()
+
+	elif _deadline_active:
+		_deadline_countdown -= delta
+		label.text = "!" + str(ceili(_deadline_countdown))
+		if _deadline_countdown <= 0.0:
+			_deadline_active = false
+			set_process(false)
+			_on_deadline_expired()
+
+
+# --- Public API ---
 
 func set_interactable(v: bool) -> void:
 	_interactable = v
@@ -45,32 +71,21 @@ func start_resolve(members: Array) -> bool:
 	set_process(true)
 	return true
 
-func _process(delta: float) -> void:
-	if _resolving:
-		_resolve_countdown -= delta
-		label.text = "..." + str(ceili(_resolve_countdown))
-		if _resolve_countdown <= 0.0:
-			_resolving = false
-			set_process(false)
-			_do_resolve()
-			
-	elif _deadline_active:
-		_deadline_countdown -= delta
-		label.text = "!" + str(ceili(_deadline_countdown))
-		if _deadline_countdown <= 0.0:
-			_deadline_active = false
-			set_process(false)
-			_on_deadline_expired()
+func confirm() -> void:
+	queue_free()
+	if not expired:
+		resolved.emit(resolved_success)
+
+
+# --- Resolution ---
 
 func _on_deadline_expired() -> void:
 	expired = true
-	_interactable = false
-	input_pickable = false
-	if collision:
-		collision.disabled = true
+	done = true
+	resolved_success = false
 	label.text = "X("
-	get_tree().create_timer(feedback_seconds).timeout.connect(queue_free)
 	resolved.emit(false)
+	set_interactable(true)
 
 func _do_resolve() -> void:
 	var totals := {}
@@ -78,24 +93,24 @@ func _do_resolve() -> void:
 		for attr in member["scores"]:
 			totals[attr] = totals.get(attr, 0) + member["scores"][attr]
 
-	var total := 0
-	for attr in totals:
-		total += totals[attr]
+	var success = true
+	for attr in attribute_thresholds:
+		if totals.get(attr, 0) < attribute_thresholds[attr]:
+			success = false
+			break
 
-	var success := total >= total_score_threshold
-	if success:
-		for attr in attribute_thresholds:
-			if totals.get(attr, 0) < attribute_thresholds[attr]:
-				success = false
-				break
-
+	done = true
+	resolved_success = success
+	player_totals = totals
 	label.text = ":D" if success else "X("
-	get_tree().create_timer(feedback_seconds).timeout.connect(queue_free)
-	resolved.emit(success)
+	set_interactable(true)
+
+
+# --- Input ---
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if !_interactable:
 		return
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		selected.emit(mission_text)
+		selected.emit(self)

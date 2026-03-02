@@ -4,7 +4,7 @@ class_name Unit
 signal arrived
 signal returned_home
 
-@export var speed: float = 40.0  # ajuste como quiser (px/s)
+@export var speed: float = 20.0 
 @onready var label: Label = $Label
 
 var _home_pos: Vector2
