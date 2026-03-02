@@ -3,7 +3,7 @@ class_name UIOverlay
 
 signal closed
 signal menu_opened
-signal send_pressed(members: Array)
+signal send_pressed(members: Array[Dictionary])
 signal ok_pressed(mission: Mission)
 
 @onready var menus: Control = $Menus

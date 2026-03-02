@@ -12,52 +12,57 @@ signal member_state_changed
 
 var _selected_mission: Mission = null
 var members: Array[Dictionary] = [
-  { "name": "Bigfoot",    "available": true, "state": "READY", "scores": {"STR": 3, "DEX": 2, "INT": 1, "CHA": 1, "CON": 0}},
-  { "name": "Mothman",    "available": true, "state": "READY", "scores": {"STR": 0, "DEX": 3, "INT": 2, "CHA": 1, "CON": 1}},
+  { "name": "Bigfoot",	"available": true, "state": "READY", "scores": {"STR": 3, "DEX": 2, "INT": 1, "CHA": 1, "CON": 0}},
+  { "name": "Mothman",	"available": true, "state": "READY", "scores": {"STR": 0, "DEX": 3, "INT": 2, "CHA": 1, "CON": 1}},
   { "name": "Gilledman",  "available": true, "state": "READY", "scores": {"STR": 1, "DEX": 0, "INT": 3, "CHA": 2, "CON": 1}},
   { "name": "Chupacabra", "available": true, "state": "READY", "scores": {"STR": 1, "DEX": 1, "INT": 0, "CHA": 3, "CON": 2}},
-  { "name": "Nessie",     "available": true, "state": "READY", "scores": {"STR": 2, "DEX": 1, "INT": 1, "CHA": 0, "CON": 3}},
+  { "name": "Nessie",	 "available": true, "state": "READY", "scores": {"STR": 2, "DEX": 1, "INT": 1, "CHA": 0, "CON": 3}},
 ]
 
 var UnitScene: PackedScene = preload("res://scenes/unit.tscn")
 var MissionScene: PackedScene = preload("res://scenes/mission.tscn")
 
-var mission_queue: Array[Dictionary] = [
+var _mission_data: Dictionary = {}
+
+func _load_mission_data() -> void:
+	var file := FileAccess.open("res://data/missions.json", FileAccess.READ)
+	if file == null:
+		push_error("Failed to open missions.json")
+		return
+	var json := JSON.new()
+	var err := json.parse(file.get_as_text())
+	file.close()
+	if err != OK:
+		push_error("Failed to parse missions.json")
+		return
+	for entry: Dictionary in json.data:
+		_mission_data[entry["id"]] = entry
+
+var mission_queue: Array = [
 	{
+		"id": "ration_bags",
 		"spawn_time": 2.0,
 		"deadline": 20.0,
 		"position": Vector2(-72, -48),
-		"mission_text": "Parece que os sacos de ração acabaram mais rápido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta. Tomem cuidado, os sacos podem ser pesados, e podem atrair atenção indesejada de seres acima.",
-		"success_text": "Os ursos-corujas terão seu jantar garantido pelos próximos dias.",
-		"error_text": "Parece que a carga foi derrubada pelo caminho... Alguém sabe se os ursos-coruja fazem dieta?",
-		"missed_text": "Parece que os ursos-coruja foram atrás de seu próprio jantar. Atenção aos salmões e sementes de girassol.",
-		"attr_thresholds": {"STR": 3, "DEX": 2},
 	},
 	{
+		"id": "blue_hedgehog",
 		"spawn_time": 2.5,
 		"deadline": 20.0,
 		"position": Vector2(-72, 48),
-		"mission_text": "Um ouriço azul está preso em cima de uma árvore. Ele parece estar com medo de descer. Precisamos de alguém para acalmá-lo e ajudá-lo a descer em segurança.",
-		"success_text": "O ouriço foi salvo e saiu correndo... estranhamento rápido.",
-		"error_text": "O ouriço foi assustado e entrou em super-nova. Ele não é mais um problema, mas também não é mais um ouriço.",
-		"missed_text": "O ouriço não conseguiu se segurar e acabou caindo. Achamos apenas alguns aneis no chão, deveríamos nos preocupar?",
-		"attr_thresholds": {"CHA": 3, "CON": 2},
 	},
 	{
+		"id": "goblin_cubes",
 		"spawn_time": 3.0,
 		"deadline": 20.0,
 		"position": Vector2(96, 0),
-		"mission_text": "O som de goblins chorando por não conseguirem resolver cubos-mágicos está incomodando a fauna local. Como foi que eles conseguiram os cubos, aliás?",
-		"success_text": "O algoritmo de resolução de cubos-mágicos foi ensinado didáticamente. Paulo Freire estaria orgulhoso.",
-		"error_text": "Aparentemente aqueles objetos geométricos mágicos são difíceis de resolver para uma grande gama de espécies.",
-		"missed_text": "O silêncio repentino e peças coloridas flutuando no rio indicam que os goblins encontraram uma solução alternativa.",
-		"attr_thresholds": {"INT": 3, "CHA": 2},
 	}
 ]
 
 var _spawn_timers: Array[Dictionary] = []
 
 func _ready() -> void:
+	_load_mission_data()
 	ui.closed.connect(_on_ui_closed)
 	ui.menu_opened.connect(_on_menu_opened)
 	ui.send_pressed.connect(_on_send_pressed)
@@ -76,8 +81,11 @@ func _process(delta: float) -> void:
 
 
 func _spawn_mission(data: Dictionary) -> void:
+	var merged := data.duplicate()
+	if _mission_data.has(data["id"]):
+		merged.merge(_mission_data[data["id"]])
 	var mission := MissionScene.instantiate() as Mission
-	mission.init(data)
+	mission.init(merged)
 	missions_root.add_child(mission)
 	mission.selected.connect(_on_mission_selected)
 	
@@ -107,11 +115,12 @@ func _on_ui_closed() -> void:
 
 
 func _on_send_pressed(unit_members: Array[Dictionary]) -> void:
-	get_tree().paused = false
 	if _selected_mission == null or !is_instance_valid(_selected_mission):
 		return
 	if unit_members.is_empty():
 		return
+		
+	get_tree().paused = false
 
 	var mission := _selected_mission
 	_selected_mission = null

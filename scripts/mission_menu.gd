@@ -1,7 +1,7 @@
 extends VBoxContainer
 class_name MissionMenu
 
-signal send_pressed(members: Array)
+signal send_pressed(members: Array[Dictionary])
 signal ok_pressed(mission: Mission)
 
 @onready var mission_label: Label = $HBoxContainer/Mission
@@ -20,7 +20,6 @@ var _in_review: bool = false
 
 
 func _ready() -> void:
-	send_button.pressed.connect(_on_send_button_pressed)
 	visible = false
 
 	var game: Node = get_tree().get_root().get_node("Game")
@@ -145,10 +144,13 @@ func _on_send_button_pressed() -> void:
 	if _in_review:
 		ok_pressed.emit(_current_mission)
 		return
-	var selected := []
+
+	var selected: Array[Dictionary] = []
 	var game: Node = get_tree().get_root().get_node("Game")
 	var children := unit_selector.get_children()
+
 	for i in children.size():
 		if (children[i] as CheckButton).button_pressed:
 			selected.append(game.members[i])
+
 	send_pressed.emit(selected)
