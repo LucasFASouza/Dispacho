@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="MissionData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://b3n5kdjex43l0"]
 
-[ext_resource type="Script" path="res://scripts/mission_data.gd" id="1"]
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
@@ -10,6 +10,6 @@ success_text = "O algoritmo de resolução de cubos-mágicos foi ensinado didát
 error_text = "Aparentemente aqueles objetos geométricos mágicos são difíceis de resolver para uma grande gama de espécies."
 missed_text = "O silêncio repentino e peças coloridas flutuando no rio indicam que os goblins encontraram uma solução alternativa."
 attr_thresholds = {
-"INT": 3,
-"CHA": 2
+"CHA": 2,
+"INT": 3
 }

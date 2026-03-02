@@ -3,13 +3,20 @@
 [ext_resource type="Script" uid="uid://7yspuyx1a5v8" path="res://scripts/game.gd" id="1_yqjtg"]
 [ext_resource type="Resource" uid="uid://dv5mv4k06lo16" path="res://data/missions/queue.tres" id="2_lbhrr"]
 [ext_resource type="Script" uid="uid://ki8opvy0kxsw" path="res://scripts/ui.gd" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://bx20p15pgul1o" path="res://scripts/member_data.gd" id="3_vtaks"]
+[ext_resource type="Resource" path="res://data/members/bigfoot.tres" id="4_kvpfn"]
 [ext_resource type="Script" uid="uid://ckehygxlanfj1" path="res://scripts/mission_menu.gd" id="4_mmenu"]
+[ext_resource type="Resource" path="res://data/members/chupacabra.tres" id="5_dinhu"]
+[ext_resource type="Resource" path="res://data/members/gilledman.tres" id="6_kvuet"]
+[ext_resource type="Resource" path="res://data/members/mothman.tres" id="7_trtic"]
+[ext_resource type="Resource" path="res://data/members/nessie.tres" id="8_ir15t"]
 
 [node name="Game" type="Node2D" unique_id=2123722845]
 script = ExtResource("1_yqjtg")
 rest_seconds = 10.0
 recover_seconds = 15.0
 mission_queue_res = ExtResource("2_lbhrr")
+members_res = Array[ExtResource("3_vtaks")]([ExtResource("4_kvpfn"), ExtResource("5_dinhu"), ExtResource("6_kvuet"), ExtResource("7_trtic"), ExtResource("8_ir15t")])
 
 [node name="BG" type="ColorRect" parent="." unique_id=942862673]
 anchors_preset = 8

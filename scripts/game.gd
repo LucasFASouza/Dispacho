@@ -7,18 +7,13 @@ extends Node2D
 @export var rest_seconds: float = 5.0
 @export var recover_seconds: float = 12.0
 @export var mission_queue_res: MissionQueueResource
+@export var members_res: Array[MemberData]
 
 signal member_availability_changed
 signal member_state_changed
 
 var _selected_mission: Mission = null
-var members: Array[Dictionary] = [
-  { "name": "Bigfoot",	"available": true, "state": "READY", "scores": {"STR": 3, "DEX": 2, "INT": 1, "CHA": 1, "CON": 0}},
-  { "name": "Mothman",	"available": true, "state": "READY", "scores": {"STR": 0, "DEX": 3, "INT": 2, "CHA": 1, "CON": 1}},
-  { "name": "Gilledman",  "available": true, "state": "READY", "scores": {"STR": 1, "DEX": 0, "INT": 3, "CHA": 2, "CON": 1}},
-  { "name": "Chupacabra", "available": true, "state": "READY", "scores": {"STR": 1, "DEX": 1, "INT": 0, "CHA": 3, "CON": 2}},
-  { "name": "Nessie",	 "available": true, "state": "READY", "scores": {"STR": 2, "DEX": 1, "INT": 1, "CHA": 0, "CON": 3}},
-]
+var members: Array[Dictionary] = []
 
 var UnitScene: PackedScene = preload("res://scenes/unit.tscn")
 var MissionScene: PackedScene = preload("res://scenes/mission.tscn")
@@ -26,6 +21,20 @@ var MissionScene: PackedScene = preload("res://scenes/mission.tscn")
 var _spawn_timers: Array[Dictionary] = []
 
 func _ready() -> void:
+	if members_res.is_empty():
+		push_error("Game: members_res is empty. Assign MemberData resources in the Inspector.")
+		return
+	if mission_queue_res == null:
+		push_error("Game: mission_queue_res is not assigned. Run build_missions.gd and assign data/missions/queue.tres in the Inspector.")
+		return
+	for data: MemberData in members_res:
+		members.append({
+			"name": data.member_name,
+			"available": true,
+			"state": "READY",
+			"scores": data.scores,
+		})
+	ui.init_members(members)
 	ui.closed.connect(_on_ui_closed)
 	ui.menu_opened.connect(_on_menu_opened)
 	ui.send_pressed.connect(_on_send_pressed)

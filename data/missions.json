@@ -1,26 +1,35 @@
 [
   {
-	"id": "ration_bags",
-	"mission_text": "Parece que os sacos de ração acabaram mais rápido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta. Tomem cuidado, os sacos podem ser pesados, e podem atrair atenção indesejada de seres acima.",
-	"success_text": "Os ursos-corujas terão seu jantar garantido pelos próximos dias.",
-	"error_text": "Parece que a carga foi derrubada pelo caminho... Alguém sabe se os ursos-coruja fazem dieta?",
-	"missed_text": "Parece que os ursos-coruja foram atrás de seu próprio jantar. Atenção aos salmões e sementes de girassol.",
-	"attr_thresholds": { "STR": 3, "DEX": 2 }
+    "id": "ration_bags",
+    "spawn_time": 2.0,
+    "deadline": 20.0,
+    "position": [-72, -48],
+    "mission_text": "Parece que os sacos de ração acabaram mais rápido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta. Tomem cuidado, os sacos podem ser pesados, e podem atrair atenção indesejada de seres acima.",
+    "success_text": "Os ursos-corujas terão seu jantar garantido pelos próximos dias.",
+    "error_text": "Parece que a carga foi derrubada pelo caminho... Alguém sabe se os ursos-coruja fazem dieta?",
+    "missed_text": "Parece que os ursos-coruja foram atrás de seu próprio jantar. Atenção aos salmões e sementes de girassol.",
+    "attr_thresholds": { "STR": 3, "DEX": 2 }
   },
   {
-	"id": "blue_hedgehog",
-	"mission_text": "Um ouriço azul está preso em cima de uma árvore. Ele parece estar com medo de descer. Precisamos de alguém para acalmá-lo e ajudá-lo a descer em segurança.",
-	"success_text": "O ouriço foi salvo e saiu correndo... estranhamento rápido.",
-	"error_text": "O ouriço foi assustado e entrou em super-nova. Ele não é mais um problema, mas também não é mais um ouriço.",
-	"missed_text": "O ouriço não conseguiu se segurar e acabou caindo. Achamos apenas alguns aneis no chão, deveríamos nos preocupar?",
-	"attr_thresholds": { "CHA": 3, "CON": 2 }
+    "id": "blue_hedgehog",
+    "spawn_time": 2.5,
+    "deadline": 20.0,
+    "position": [-72, 48],
+    "mission_text": "Um ouriço azul está preso em cima de uma árvore. Ele parece estar com medo de descer. Precisamos de alguém para acalmá-lo e ajudá-lo a descer em segurança.",
+    "success_text": "O ouriço foi salvo e saiu correndo... estranhamento rápido.",
+    "error_text": "O ouriço foi assustado e entrou em super-nova. Ele não é mais um problema, mas também não é mais um ouriço.",
+    "missed_text": "O ouriço não conseguiu se segurar e acabou caindo. Achamos apenas alguns aneis no chão, deveríamos nos preocupar?",
+    "attr_thresholds": { "CHA": 3, "CON": 2 }
   },
   {
-	"id": "goblin_cubes",
-	"mission_text": "O som de goblins chorando por não conseguirem resolver cubos-mágicos está incomodando a fauna local. Como foi que eles conseguiram os cubos, aliás?",
-	"success_text": "O algoritmo de resolução de cubos-mágicos foi ensinado didáticamente. Paulo Freire estaria orgulhoso.",
-	"error_text": "Aparentemente aqueles objetos geométricos mágicos são difíceis de resolver para uma grande gama de espécies.",
-	"missed_text": "O silêncio repentino e peças coloridas flutuando no rio indicam que os goblins encontraram uma solução alternativa.",
-	"attr_thresholds": { "INT": 3, "CHA": 2 }
+    "id": "goblin_cubes",
+    "spawn_time": 3.0,
+    "deadline": 20.0,
+    "position": [96, 0],
+    "mission_text": "O som de goblins chorando por não conseguirem resolver cubos-mágicos está incomodando a fauna local. Como foi que eles conseguiram os cubos, aliás?",
+    "success_text": "O algoritmo de resolução de cubos-mágicos foi ensinado didáticamente. Paulo Freire estaria orgulhoso.",
+    "error_text": "Aparentemente aqueles objetos geométricos mágicos são difíceis de resolver para uma grande gama de espécies.",
+    "missed_text": "O silêncio repentino e peças coloridas flutuando no rio indicam que os goblins encontraram uma solução alternativa.",
+    "attr_thresholds": { "INT": 3, "CHA": 2 }
   }
 ]

@@ -22,9 +22,8 @@ var _in_review: bool = false
 func _ready() -> void:
 	visible = false
 
-	var game: Node = get_tree().get_root().get_node("Game")
-
-	for member in game.members:
+func init_members(members: Array[Dictionary]) -> void:
+	for member in members:
 		var check := CheckButton.new()
 		check.text = member["name"]
 		check.toggled.connect(_update_scores.unbind(1))
@@ -36,6 +35,7 @@ func _ready() -> void:
 		container.setup(ATTR_LABELS[attr], ATTR_MAX)
 		_att_containers[attr] = container
 
+	var game: Node = get_tree().get_root().get_node("Game")
 	game.member_availability_changed.connect(_refresh_checkboxes)
 	_update_scores()
 

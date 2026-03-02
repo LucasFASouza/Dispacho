@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="MissionData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://dj6jryy7a75jk"]
 
-[ext_resource type="Script" path="res://scripts/mission_data.gd" id="1"]
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
@@ -10,6 +10,6 @@ success_text = "Os ursos-corujas terão seu jantar garantido pelos próximos dia
 error_text = "Parece que a carga foi derrubada pelo caminho... Alguém sabe se os ursos-coruja fazem dieta?"
 missed_text = "Parece que os ursos-coruja foram atrás de seu próprio jantar. Atenção aos salmões e sementes de girassol."
 attr_thresholds = {
-"STR": 3,
-"DEX": 2
+"DEX": 2,
+"STR": 3
 }

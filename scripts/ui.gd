@@ -19,17 +19,18 @@ var _member_state_labels: Array = []
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	hide_overlay_silent()
-
 	mission_menu.send_pressed.connect(func(members): send_pressed.emit(members))
 	mission_menu.ok_pressed.connect(func(mission): ok_pressed.emit(mission))
 
-	var game: Node = get_tree().get_root().get_node("Game")
-	for member in game.members:
+func init_members(members: Array[Dictionary]) -> void:
+	for member in members:
 		var node := MemberUIScene.instantiate()
 		members_container.add_child(node)
 		node.get_node("MemberLabel").text = member["name"]
 		_member_state_labels.append(node.get_node("MemberState"))
+	var game: Node = get_tree().get_root().get_node("Game")
 	game.member_state_changed.connect(_refresh_member_states)
+	mission_menu.init_members(members)
 	_refresh_member_states()
 
 
