@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="MissionQueueResource" format=3 uid="uid://dv5mv4k06lo16"]
+
+[ext_resource type="Script" uid="uid://qt23ssn6ok5i" path="res://scripts/mission_queue_resource.gd" id="1"]
+[ext_resource type="Script" uid="uid://cem0kmu6olv1m" path="res://scripts/mission_queue_entry.gd" id="2"]
+[ext_resource type="Resource" path="res://data/missions/ration_bags.tres" id="3"]
+[ext_resource type="Resource" uid="uid://dhonkhjq0qtb7" path="res://data/missions/blue_hedgehog.tres" id="4"]
+[ext_resource type="Resource" path="res://data/missions/goblin_cubes.tres" id="5"]
+
+[sub_resource type="Resource" id="SubResource_1"]
+script = ExtResource("2")
+data = ExtResource("3")
+deadline = 20.0
+position = Vector2(-72, -48)
+
+[sub_resource type="Resource" id="SubResource_2"]
+script = ExtResource("2")
+data = ExtResource("4")
+spawn_time = 2.5
+deadline = 20.0
+position = Vector2(-72, 48)
+
+[sub_resource type="Resource" id="SubResource_3"]
+script = ExtResource("2")
+data = ExtResource("5")
+spawn_time = 3.0
+deadline = 20.0
+position = Vector2(96, 0)
+
+[resource]
+script = ExtResource("1")
+entries = Array[ExtResource("2")]([SubResource("SubResource_1"), SubResource("SubResource_2"), SubResource("SubResource_3")])

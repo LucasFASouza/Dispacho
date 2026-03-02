@@ -6,6 +6,7 @@ extends Node2D
 
 @export var rest_seconds: float = 5.0
 @export var recover_seconds: float = 12.0
+@export var mission_queue_res: MissionQueueResource
 
 signal member_availability_changed
 signal member_state_changed
@@ -22,53 +23,15 @@ var members: Array[Dictionary] = [
 var UnitScene: PackedScene = preload("res://scenes/unit.tscn")
 var MissionScene: PackedScene = preload("res://scenes/mission.tscn")
 
-var _mission_data: Dictionary = {}
-
-func _load_mission_data() -> void:
-	var file := FileAccess.open("res://data/missions.json", FileAccess.READ)
-	if file == null:
-		push_error("Failed to open missions.json")
-		return
-	var json := JSON.new()
-	var err := json.parse(file.get_as_text())
-	file.close()
-	if err != OK:
-		push_error("Failed to parse missions.json")
-		return
-	for entry: Dictionary in json.data:
-		_mission_data[entry["id"]] = entry
-
-var mission_queue: Array = [
-	{
-		"id": "ration_bags",
-		"spawn_time": 2.0,
-		"deadline": 20.0,
-		"position": Vector2(-72, -48),
-	},
-	{
-		"id": "blue_hedgehog",
-		"spawn_time": 2.5,
-		"deadline": 20.0,
-		"position": Vector2(-72, 48),
-	},
-	{
-		"id": "goblin_cubes",
-		"spawn_time": 3.0,
-		"deadline": 20.0,
-		"position": Vector2(96, 0),
-	}
-]
-
 var _spawn_timers: Array[Dictionary] = []
 
 func _ready() -> void:
-	_load_mission_data()
 	ui.closed.connect(_on_ui_closed)
 	ui.menu_opened.connect(_on_menu_opened)
 	ui.send_pressed.connect(_on_send_pressed)
 	ui.ok_pressed.connect(_on_ok_pressed)
-	for data: Dictionary in mission_queue:
-		_spawn_timers.append({"remaining": data["spawn_time"], "data": data})
+	for entry: MissionQueueEntry in mission_queue_res.entries:
+		_spawn_timers.append({"remaining": entry.spawn_time, "entry": entry})
 	set_process(true)
 
 func _process(delta: float) -> void:
@@ -76,16 +39,13 @@ func _process(delta: float) -> void:
 		entry["remaining"] -= delta
 		if entry["remaining"] <= 0.0:
 			_spawn_timers.erase(entry)
-			_spawn_mission(entry["data"] as Dictionary)
+			_spawn_mission(entry["entry"] as MissionQueueEntry)
 			return
 
 
-func _spawn_mission(data: Dictionary) -> void:
-	var merged := data.duplicate()
-	if _mission_data.has(data["id"]):
-		merged.merge(_mission_data[data["id"]])
+func _spawn_mission(entry: MissionQueueEntry) -> void:
 	var mission := MissionScene.instantiate() as Mission
-	mission.init(merged)
+	mission.init_from_resource(entry)
 	missions_root.add_child(mission)
 	mission.selected.connect(_on_mission_selected)
 	

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MissionData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/mission_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "goblin_cubes"
+mission_text = "O som de goblins chorando por não conseguirem resolver cubos-mágicos está incomodando a fauna local. Como foi que eles conseguiram os cubos, aliás?"
+success_text = "O algoritmo de resolução de cubos-mágicos foi ensinado didáticamente. Paulo Freire estaria orgulhoso."
+error_text = "Aparentemente aqueles objetos geométricos mágicos são difíceis de resolver para uma grande gama de espécies."
+missed_text = "O silêncio repentino e peças coloridas flutuando no rio indicam que os goblins encontraram uma solução alternativa."
+attr_thresholds = {
+"INT": 3,
+"CHA": 2
+}

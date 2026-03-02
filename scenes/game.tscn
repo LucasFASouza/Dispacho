@@ -1,11 +1,15 @@
 [gd_scene format=3 uid="uid://bn1c8p74atvak"]
 
 [ext_resource type="Script" uid="uid://7yspuyx1a5v8" path="res://scripts/game.gd" id="1_yqjtg"]
+[ext_resource type="Resource" uid="uid://dv5mv4k06lo16" path="res://data/missions/queue.tres" id="2_lbhrr"]
 [ext_resource type="Script" uid="uid://ki8opvy0kxsw" path="res://scripts/ui.gd" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://ckehygxlanfj1" path="res://scripts/mission_menu.gd" id="4_mmenu"]
 
 [node name="Game" type="Node2D" unique_id=2123722845]
 script = ExtResource("1_yqjtg")
+rest_seconds = 10.0
+recover_seconds = 15.0
+mission_queue_res = ExtResource("2_lbhrr")
 
 [node name="BG" type="ColorRect" parent="." unique_id=942862673]
 anchors_preset = 8
