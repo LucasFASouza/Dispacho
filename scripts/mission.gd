@@ -56,6 +56,15 @@ func _process(delta: float) -> void:
 
 # --- Public API ---
 
+func init(data: Dictionary) -> void:
+	mission_text = data.get("mission_text", mission_text)
+	success_text = data.get("success_text", success_text)
+	fail_text = data.get("error_text", fail_text)
+	missed_text = data.get("missed_text", missed_text)
+	attribute_thresholds = data.get("attr_thresholds", attribute_thresholds)
+	deadline_seconds = data.get("deadline", deadline_seconds)
+	position = data.get("position", position)
+
 func set_interactable(v: bool) -> void:
 	_interactable = v
 	input_pickable = v

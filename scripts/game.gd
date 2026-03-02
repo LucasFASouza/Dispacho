@@ -11,7 +11,7 @@ signal member_availability_changed
 signal member_state_changed
 
 var _selected_mission: Mission = null
-var members = [
+var members: Array[Dictionary] = [
   { "name": "Bigfoot",    "available": true, "state": "READY", "scores": {"STR": 3, "DEX": 2, "INT": 1, "CHA": 1, "CON": 0}},
   { "name": "Mothman",    "available": true, "state": "READY", "scores": {"STR": 0, "DEX": 3, "INT": 2, "CHA": 1, "CON": 1}},
   { "name": "Gilledman",  "available": true, "state": "READY", "scores": {"STR": 1, "DEX": 0, "INT": 3, "CHA": 2, "CON": 1}},
@@ -22,21 +22,21 @@ var members = [
 var UnitScene: PackedScene = preload("res://scenes/unit.tscn")
 var MissionScene: PackedScene = preload("res://scenes/mission.tscn")
 
-var mission_queue := [
+var mission_queue: Array[Dictionary] = [
 	{
 		"spawn_time": 2.0,
 		"deadline": 20.0,
-		"position": Vector2(-64, -40),
-		"mission_text": "Parece que os sacos de ra\u00e7\u00e3o acabaram mais r\u00e1pido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta. Tomem cuidado, os sacos podem ser pesados, e podem atrair atenção indesejada de seres acima.",
+		"position": Vector2(-72, -48),
+		"mission_text": "Parece que os sacos de ração acabaram mais rápido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta. Tomem cuidado, os sacos podem ser pesados, e podem atrair atenção indesejada de seres acima.",
 		"success_text": "Os ursos-corujas terão seu jantar garantido pelos próximos dias.",
 		"error_text": "Parece que a carga foi derrubada pelo caminho... Alguém sabe se os ursos-coruja fazem dieta?",
 		"missed_text": "Parece que os ursos-coruja foram atrás de seu próprio jantar. Atenção aos salmões e sementes de girassol.",
 		"attr_thresholds": {"STR": 3, "DEX": 2},
 	},
 	{
-		"spawn_time": 10.0,
+		"spawn_time": 2.5,
 		"deadline": 20.0,
-		"position": Vector2(64, 32),
+		"position": Vector2(-72, 48),
 		"mission_text": "Um ouriço azul está preso em cima de uma árvore. Ele parece estar com medo de descer. Precisamos de alguém para acalmá-lo e ajudá-lo a descer em segurança.",
 		"success_text": "O ouriço foi salvo e saiu correndo... estranhamento rápido.",
 		"error_text": "O ouriço foi assustado e entrou em super-nova. Ele não é mais um problema, mas também não é mais um ouriço.",
@@ -44,9 +44,9 @@ var mission_queue := [
 		"attr_thresholds": {"CHA": 3, "CON": 2},
 	},
 	{
-		"spawn_time": 18.0,
+		"spawn_time": 3.0,
 		"deadline": 20.0,
-		"position": Vector2(0, 48),
+		"position": Vector2(96, 0),
 		"mission_text": "O som de goblins chorando por não conseguirem resolver cubos-mágicos está incomodando a fauna local. Como foi que eles conseguiram os cubos, aliás?",
 		"success_text": "O algoritmo de resolução de cubos-mágicos foi ensinado didáticamente. Paulo Freire estaria orgulhoso.",
 		"error_text": "Aparentemente aqueles objetos geométricos mágicos são difíceis de resolver para uma grande gama de espécies.",
@@ -55,35 +55,29 @@ var mission_queue := [
 	}
 ]
 
-var _spawn_timers: Array = []
+var _spawn_timers: Array[Dictionary] = []
 
 func _ready() -> void:
 	ui.closed.connect(_on_ui_closed)
 	ui.menu_opened.connect(_on_menu_opened)
 	ui.send_pressed.connect(_on_send_pressed)
 	ui.ok_pressed.connect(_on_ok_pressed)
-	for data in mission_queue:
+	for data: Dictionary in mission_queue:
 		_spawn_timers.append({"remaining": data["spawn_time"], "data": data})
 	set_process(true)
 
 func _process(delta: float) -> void:
-	for entry in _spawn_timers:
+	for entry: Dictionary in _spawn_timers:
 		entry["remaining"] -= delta
 		if entry["remaining"] <= 0.0:
 			_spawn_timers.erase(entry)
-			_spawn_mission(entry["data"])
+			_spawn_mission(entry["data"] as Dictionary)
 			return
 
 
 func _spawn_mission(data: Dictionary) -> void:
 	var mission := MissionScene.instantiate() as Mission
-	mission.mission_text = data["mission_text"]
-	mission.success_text = data.get("success_text", "")
-	mission.fail_text = data.get("error_text", "")
-	mission.missed_text = data.get("missed_text", "")
-	mission.attribute_thresholds = data["attr_thresholds"]
-	mission.deadline_seconds = data["deadline"]
-	mission.position = data["position"]
+	mission.init(data)
 	missions_root.add_child(mission)
 	mission.selected.connect(_on_mission_selected)
 	
@@ -112,7 +106,7 @@ func _on_ui_closed() -> void:
 	get_tree().paused = false
 
 
-func _on_send_pressed(unit_members: Array) -> void:
+func _on_send_pressed(unit_members: Array[Dictionary]) -> void:
 	get_tree().paused = false
 	if _selected_mission == null or !is_instance_valid(_selected_mission):
 		return
@@ -148,11 +142,11 @@ func _on_mission_resolved(success: bool, unit: Unit) -> void:
 
 func _finish_unit(unit: Unit, success: bool) -> void:
 	_set_member_states(unit.members, "RETURNING")
-	unit.returned_home.connect(_on_unit_returned_home.bind(unit.members, success))
+	unit.returned_home.connect(_on_unit_returned_home.bind(unit.members as Array[Dictionary], success))
 	unit.go_home()
 
 
-func _on_unit_returned_home(unit_members: Array, success: bool) -> void:
+func _on_unit_returned_home(unit_members: Array[Dictionary], success: bool) -> void:
 	var state := "RESTING" if success else "RECOVERING"
 	var wait := rest_seconds if success else recover_seconds
 	for m in unit_members:
@@ -161,10 +155,10 @@ func _on_unit_returned_home(unit_members: Array, success: bool) -> void:
 	_tick_countdown(unit_members)
 
 
-func _tick_countdown(unit_members: Array) -> void:
+func _tick_countdown(unit_members: Array[Dictionary]) -> void:
 	get_tree().create_timer(1.0, false).timeout.connect(func():
 		var any_left := false
-		for m in unit_members:
+		for m: Dictionary in unit_members:
 			if m["state"] == "RESTING" or m["state"] == "RECOVERING":
 				m["countdown"] -= 1
 				if m["countdown"] <= 0:
@@ -179,8 +173,8 @@ func _tick_countdown(unit_members: Array) -> void:
 	)
 
 
-func _set_member_states(unit_members: Array, state: String) -> void:
-	for m in unit_members:
+func _set_member_states(unit_members: Array[Dictionary], state: String) -> void:
+	for m: Dictionary in unit_members:
 		m["state"] = state
 		m["available"] = (state == "READY")
 	member_availability_changed.emit()
