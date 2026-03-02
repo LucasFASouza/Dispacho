@@ -4,9 +4,10 @@ class_name Mission
 signal selected(mission: Mission)
 signal resolved(success: bool)
 
-@export var mission_text := "Parece que os sacos de ração acabaram mais rápido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta.\nTomem cuidado, os sacos podem ser pesados, e podem atrair atenção indesejada de seres acima."
-@export var success_text: String = ""
-@export var fail_text: String = ""
+@export var mission_text := ""
+@export var success_text: String = "Missão concluída com sucesso!"
+@export var fail_text: String = "A missão falhou."
+@export var missed_text: String = "Ninguém chegou a tempo."
 @export var attribute_thresholds: Dictionary = {}
 @export var resolve_seconds: float = 5.0
 @export var feedback_seconds: float = 2.0

@@ -74,7 +74,13 @@ func show_review(mission: Mission) -> void:
 	_in_review = true
 	_current_mission = mission
 
-	var result_text: String = mission.success_text if mission.resolved_success else mission.fail_text
+	var result_text: String
+	if mission.expired:
+		result_text = mission.missed_text
+	elif mission.resolved_success:
+		result_text = mission.success_text
+	else:
+		result_text = mission.fail_text
 	mission_label.text = result_text if result_text != "" else mission.mission_text
 	unit_selector.visible = false
 	send_button.text = "OK"

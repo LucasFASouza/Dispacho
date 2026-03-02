@@ -30,7 +30,8 @@ var mission_queue := [
 		"mission_text": "Parece que os sacos de ra\u00e7\u00e3o acabaram mais r\u00e1pido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta. Tomem cuidado, os sacos podem ser pesados, e podem atrair atenção indesejada de seres acima.",
 		"success_text": "Os ursos-corujas terão seu jantar garantido pelos próximos dias.",
 		"error_text": "Parece que a carga foi derrubada pelo caminho... Alguém sabe se os ursos-coruja fazem dieta?",
-		"attr_thresholds": {"STR": 3},
+		"missed_text": "Parece que os ursos-coruja foram atrás de seu próprio jantar. Atenção aos salmões e sementes de girassol.",
+		"attr_thresholds": {"STR": 3, "DEX": 2},
 	},
 	{
 		"spawn_time": 10.0,
@@ -39,7 +40,8 @@ var mission_queue := [
 		"mission_text": "Um ouriço azul está preso em cima de uma árvore. Ele parece estar com medo de descer. Precisamos de alguém para acalmá-lo e ajudá-lo a descer em segurança.",
 		"success_text": "O ouriço foi salvo e saiu correndo... estranhamento rápido.",
 		"error_text": "O ouriço foi assustado e entrou em super-nova. Ele não é mais um problema, mas também não é mais um ouriço.",
-		"attr_thresholds": {"CHA": 3},
+		"missed_text": "O ouriço não conseguiu se segurar e acabou caindo. Achamos apenas alguns aneis no chão, deveríamos nos preocupar?",
+		"attr_thresholds": {"CHA": 3, "CON": 2},
 	},
 	{
 		"spawn_time": 18.0,
@@ -48,7 +50,8 @@ var mission_queue := [
 		"mission_text": "O som de goblins chorando por não conseguirem resolver cubos-mágicos está incomodando a fauna local. Como foi que eles conseguiram os cubos, aliás?",
 		"success_text": "O algoritmo de resolução de cubos-mágicos foi ensinado didáticamente. Paulo Freire estaria orgulhoso.",
 		"error_text": "Aparentemente aqueles objetos geométricos mágicos são difíceis de resolver para uma grande gama de espécies.",
-		"attr_thresholds": {"INT": 3},
+		"missed_text": "O silêncio repentino e peças coloridas flutuando no rio indicam que os goblins encontraram uma solução alternativa.",
+		"attr_thresholds": {"INT": 3, "CHA": 2},
 	}
 ]
 
@@ -77,6 +80,7 @@ func _spawn_mission(data: Dictionary) -> void:
 	mission.mission_text = data["mission_text"]
 	mission.success_text = data.get("success_text", "")
 	mission.fail_text = data.get("error_text", "")
+	mission.missed_text = data.get("missed_text", "")
 	mission.attribute_thresholds = data["attr_thresholds"]
 	mission.deadline_seconds = data["deadline"]
 	mission.position = data["position"]
