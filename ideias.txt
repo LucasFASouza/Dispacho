@@ -1,0 +1,279 @@
+1) Reabastecer sal mineral no Pico do Veado-Espectral
+
+Missão: transportar blocos de sal até um comedouro “reservado” (pesado + trilha escorregadia)
+
+Precisa: STR, DEX
+
+Falha → Complicação 1: Rastrear o veado-espectral (ele saiu do padrão e tá perto do acampamento)
+
+Precisa: INT
+
+Falha → Complicação 2: Conter investidas do veado-espectral (ele “testa” barracas e assusta visitantes)
+
+Precisa: CON, CHA, STR
+
+2) Recuperar sensores jogados no pântano (Lodo que copia vozes)
+
+Missão: entrar na borda do pântano e puxar 3 sensores presos no lodo
+
+Precisa: DEX, CON
+
+Falha → Complicação 1: Isolar a área (falsas chamadas no rádio)
+
+Precisa: INT, CHA
+
+Falha → Complicação 2: Resgatar equipe presa em “voz-isca” (a coisa imitou um pedido de socorro)
+
+Precisa: CON, DEX, CHA
+
+3) Reativar o gerador da torre de rádio (interferência “cantada”)
+
+Missão: trocar fusível e religar o gerador antes do ranger perder comunicação
+
+Precisa: INT, DEX
+
+Falha → Complicação 1: Triangular a origem do canto no rádio
+
+Precisa: INT
+
+Falha → Complicação 2: Impedir que visitantes sigam o canto até a mata
+
+Precisa: CHA, CON
+
+4) Levar kit de contenção para “Luz que marca árvores”
+
+Missão: aplicar tinta/selante em árvores marcadas por uma luz (evitar que “propague”)
+
+Precisa: DEX, INT
+
+Falha → Complicação 1: Mapear padrões de marcação (quais árvores são “pontos”)
+
+Precisa: INT
+
+Falha → Complicação 2: Conter propagação (as marcas começam a “andar”)
+
+Precisa: CON, DEX, INT
+
+5) Recolher lixo “magnético” na trilha (atrai sucata do nada)
+
+Missão: recolher objetos metálicos que estão surgindo/“grudando” em mochilas
+
+Precisa: STR, DEX
+
+Falha → Complicação 1: Identificar o foco magnético (pedra/artefato)
+
+Precisa: INT
+
+Falha → Complicação 2: Retirar artefato com segurança (puxa placas e ferramentas)
+
+Precisa: CON, STR, DEX
+
+6) Resgatar drone preso em copa (coruja gigante territorial)
+
+Missão: recuperar drone que ficou enroscado alto, com corujas agressivas rondando
+
+Precisa: DEX, CON
+
+Falha → Complicação 1: Acalmar/afastar coruja gigante (sem ferir)
+
+Precisa: CHA, CON
+
+Falha → Complicação 2: Conter ataque à área do mirante
+
+Precisa: STR, CON, CHA
+
+7) Repor placas de trilha (placas “trocam de texto”)
+
+Missão: substituir/realinhar placas que mudam de mensagem e confundem visitantes
+
+Precisa: INT, DEX
+
+Falha → Complicação 1: Encontrar a placa-origem (a “mãe” das outras)
+
+Precisa: INT
+
+Falha → Complicação 2: Resgatar grupo perdido em loop de trilha
+
+Precisa: CON, CHA, INT
+
+8) Levar comida pro “Acampamento Invisível” (aparece só em certo ângulo)
+
+Missão: entregar suprimentos num ponto que “some” se você olhar direto
+
+Precisa: INT, CON
+
+Falha → Complicação 1: Reencontrar acampamento (marcas deixadas no chão)
+
+Precisa: INT, DEX
+
+Falha → Complicação 2: Resgatar pessoas presas na invisibilidade
+
+Precisa: CHA, CON
+
+9) Apagar fogos-fátuos na margem (enganam visitantes)
+
+Missão: dispersar focos de fogo-fátuo que atraem gente pro brejo
+
+Precisa: CON, DEX
+
+Falha → Complicação 1: Rastrear origem (quem/onde está “soprando” as chamas)
+
+Precisa: INT
+
+Falha → Complicação 2: Conter noite “apagada” (lanternas falham em área inteira)
+
+Precisa: CON, CHA, INT
+
+10) Retirar “pedra que sussurra” do riacho
+
+Missão: carregar a pedra pra longe (pesada) e não enlouquecer no caminho (pressão)
+
+Precisa: STR, CON
+
+Falha → Complicação 1: Identificar linguagem/padrão do sussurro
+
+Precisa: INT
+
+Falha → Complicação 2: Conter pessoas atraídas pelo sussurro (hipnose leve)
+
+Precisa: CHA, CON
+
+11) Consertar cerca do “Recinto do Monstro-Javali”
+
+Missão: reparar cerca derrubada antes que o bicho saia
+
+Precisa: STR, DEX
+
+Falha → Complicação 1: Rastrear monstro-javali (pegadas e árvores quebradas)
+
+Precisa: INT, CON
+
+Falha → Complicação 2: Conter investida no estacionamento (pânico)
+
+Precisa: STR, CON, CHA
+
+12) Buscar “caixa de evidências” em cabana (mímico imita objetos)
+
+Missão: recuperar caixa específica sem pegar “a falsa”
+
+Precisa: INT, DEX
+
+Falha → Complicação 1: Identificar o mímico (padrão de imitação)
+
+Precisa: INT
+
+Falha → Complicação 2: Conter cabana-armadilha (porta não abre, objetos prendem)
+
+Precisa: CON, STR, INT
+
+13) Recolher amostras de “neve quente” (efeito químico estranho)
+
+Missão: coletar e armazenar amostras antes que derretam em vapor
+
+Precisa: DEX, INT
+
+Falha → Complicação 1: Descobrir origem do fenômeno (ponto de queda)
+
+Precisa: INT
+
+Falha → Complicação 2: Conter nuvem (tosse, tontura na área)
+
+Precisa: CON, CHA
+
+14) Reforçar ponte de corda (algo corta fibras à noite)
+
+Missão: reforçar cabos e testar travessia com carga
+
+Precisa: STR, DEX
+
+Falha → Complicação 1: Rastrear “cortador” (marcas limpas nas fibras)
+
+Precisa: INT
+
+Falha → Complicação 2: Resgatar visitante que caiu/ficou preso do outro lado
+
+Precisa: CON, STR, CHA
+
+15) Investigar “olhos na mata” perto do Centro de Visitantes
+
+Missão: patrulha curta e registrar sem causar pânico
+
+Precisa: CON, CHA
+
+Falha → Complicação 1: Identificar criatura (padrão de movimento/luz)
+
+Precisa: INT
+
+Falha → Complicação 2: Conter histeria (visitantes filmando, correria)
+
+Precisa: CHA, CON
+
+16) Fechar “porta de pedra” que abriu na encosta
+
+Missão: selar fissura/porta antes que curiosos entrem
+
+Precisa: STR, INT
+
+Falha → Complicação 1: Mapear interior (eco, vento, símbolos)
+
+Precisa: INT, CON
+
+Falha → Complicação 2: Resgatar exploradores presos (porta fecha sozinha)
+
+Precisa: STR, CON, CHA
+
+17) Escoltar remessa de salmão (atrativo pra ursos-coruja e “outros”)
+
+Missão: transportar carga sem perder no caminho
+
+Precisa: STR, CON
+
+Falha → Complicação 1: Rastrear carga perdida (marcas de arrasto)
+
+Precisa: INT
+
+Falha → Complicação 2: Conter ataque na trilha (emboscada)
+
+Precisa: STR, CON, DEX
+
+18) Recalibrar placas do “Museu do Ranger” (objetos mudam de vitrine)
+
+Missão: reorganizar itens e travar vitrines (algo troca tudo)
+
+Precisa: INT, DEX
+
+Falha → Complicação 1: Identificar item âncora (o que causa troca)
+
+Precisa: INT
+
+Falha → Complicação 2: Conter exposição (objeto tenta “sair” do prédio)
+
+Precisa: CON, STR, INT
+
+19) Silenciar “sinos no poço” (ninguém instalou sinos)
+
+Missão: descer, remover/neutralizar origem do som
+
+Precisa: CON, DEX
+
+Falha → Complicação 1: Interpretar padrão dos sinos (chamada/resposta)
+
+Precisa: INT
+
+Falha → Complicação 2: Conter atração (animais e pessoas convergindo pro poço)
+
+Precisa: CHA, CON
+
+20) Levar “kit anti-mofo” pra estufa (fungo que ‘pensa’)
+
+Missão: aplicar agente e retirar plantas contaminadas
+
+Precisa: CON, INT
+
+Falha → Complicação 1: Mapear espalhamento (esporos no ar)
+
+Precisa: INT
+
+Falha → Complicação 2: Conter surto (fungo reage e fecha portas com raízes)
+
+Precisa: STR, CON, DEX
