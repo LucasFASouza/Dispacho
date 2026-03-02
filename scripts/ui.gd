@@ -2,6 +2,7 @@ extends CanvasLayer
 class_name UIOverlay
 
 signal closed
+signal menu_opened
 signal send_pressed(members: Array)
 
 @onready var menus: Control = $Menus
@@ -15,6 +16,7 @@ var MemberUIScene: PackedScene = preload("res://scenes/member.tscn")
 var _member_state_labels: Array = []
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	hide_overlay_silent()
 	
 	mission_menu.send_pressed.connect(func(members): send_pressed.emit(members))
@@ -40,6 +42,7 @@ func show_mission(text: String) -> void:
 	menus.visible = true
 	gui.visible = false
 	mission_menu.show_mission(text)
+	menu_opened.emit()
 
 func hide_overlay_silent() -> void:
 	menus.visible = false

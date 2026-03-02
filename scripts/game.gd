@@ -49,11 +49,23 @@ var mission_queue := [
 	},
 ]
 
+var _spawn_timers: Array = []
+
 func _ready() -> void:
 	ui.closed.connect(_on_ui_closed)
+	ui.menu_opened.connect(_on_menu_opened)
 	ui.send_pressed.connect(_on_send_pressed)
 	for data in mission_queue:
-		get_tree().create_timer(data["spawn_time"]).timeout.connect(_spawn_mission.bind(data))
+		_spawn_timers.append({"remaining": data["spawn_time"], "data": data})
+	set_process(true)
+
+func _process(delta: float) -> void:
+	for entry in _spawn_timers:
+		entry["remaining"] -= delta
+		if entry["remaining"] <= 0.0:
+			_spawn_timers.erase(entry)
+			_spawn_mission(entry["data"])
+			return
 
 
 func _spawn_mission(data: Dictionary) -> void:
@@ -72,11 +84,17 @@ func _on_mission_selected(text: String, mission: Mission) -> void:
 	ui.show_mission(text)
 
 
+func _on_menu_opened() -> void:
+	get_tree().paused = true
+
+
 func _on_ui_closed() -> void:
 	_selected_mission = null
+	get_tree().paused = false
 
 
 func _on_send_pressed(unit_members: Array) -> void:
+	get_tree().paused = false
 	if _selected_mission == null or !is_instance_valid(_selected_mission):
 		return
 	if unit_members.is_empty():
@@ -125,7 +143,7 @@ func _on_unit_returned_home(unit_members: Array, success: bool) -> void:
 
 
 func _tick_countdown(unit_members: Array) -> void:
-	get_tree().create_timer(1.0).timeout.connect(func():
+	get_tree().create_timer(1.0, false).timeout.connect(func():
 		var any_left := false
 		for m in unit_members:
 			if m["state"] == "RESTING" or m["state"] == "RECOVERING":
