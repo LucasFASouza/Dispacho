@@ -25,6 +25,7 @@ var MissionScene: PackedScene = preload("res://scenes/mission.tscn")
 var mission_queue := [
 	{
 		"spawn_time": 2.0,
+		"deadline": 20.0,
 		"position": Vector2(-64, -40),
 		"text": "Parece que os sacos de ra\u00e7\u00e3o acabaram mais r\u00e1pido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta.",
 		"total_threshold": 6,
@@ -32,6 +33,7 @@ var mission_queue := [
 	},
 	{
 		"spawn_time": 8.0,
+		"deadline": 20.0,
 		"position": Vector2(64, 32),
 		"text": "Um viajante relatou ter visto luzes estranhas na floresta. Precisamos investigar antes que isso atraia curiosos indesejados.",
 		"total_threshold": 5,
@@ -39,6 +41,7 @@ var mission_queue := [
 	},
 	{
 		"spawn_time": 15.0,
+		"deadline": 10.0,
 		"position": Vector2(0, 48),
 		"text": "Os aldeoes estao em panico. Um som gutural ecoa do pântano toda meia-noite. Alguem precisa ir convencer eles de que é inofensivo.",
 		"total_threshold": 7,
@@ -58,6 +61,7 @@ func _spawn_mission(data: Dictionary) -> void:
 	mission.mission_text = data["text"]
 	mission.total_score_threshold = data["total_threshold"]
 	mission.attribute_thresholds = data["attr_thresholds"]
+	mission.deadline_seconds = data["deadline"]
 	mission.position = data["position"]
 	missions_root.add_child(mission)
 	mission.selected.connect(_on_mission_selected.bind(mission))
@@ -86,6 +90,7 @@ func _on_send_pressed(unit_members: Array) -> void:
 	unit.members = unit_members
 	units_root.add_child(unit)
 	unit.arrived.connect(_on_unit_arrived.bind(unit, mission))
+	mission.resolved.connect(_on_mission_resolved.bind(unit))
 
 	mission.set_interactable(false)
 	unit.go_to(mission.global_position)
@@ -93,11 +98,10 @@ func _on_send_pressed(unit_members: Array) -> void:
 
 
 func _on_unit_arrived(unit: Unit, mission: Mission) -> void:
+	if not is_instance_valid(mission) or mission.expired:
+		return
 	_set_member_states(unit.members, "IN_MISSION")
-	if is_instance_valid(mission):
-		mission.resolved.connect(_on_mission_resolved.bind(unit))
-		mission.start_resolve(unit.members)
-	else:
+	if not mission.start_resolve(unit.members):
 		_finish_unit(unit, false)
 
 

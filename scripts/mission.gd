@@ -8,6 +8,7 @@ signal selected(text: String)
 @export var attribute_thresholds: Dictionary = {}
 @export var resolve_seconds: float = 3.0
 @export var feedback_seconds: float = 2.0
+@export var deadline_seconds: float = 30.0
 
 signal resolved(success: bool)
 
@@ -16,33 +17,60 @@ signal resolved(success: bool)
 
 var _interactable := true
 var _resolve_members: Array = []
-var _countdown: float = 0.0
+var _resolve_countdown: float = 0.0
 var _resolving: bool = false
+var _deadline_countdown: float = 0.0
+var _deadline_active: bool = false
+var expired: bool = false
+
+func _ready() -> void:
+	if deadline_seconds > 0:
+		_deadline_countdown = deadline_seconds
+		_deadline_active = true
+		set_process(true)
 
 func set_interactable(v: bool) -> void:
 	_interactable = v
 	input_pickable = v
 	if collision:
 		collision.disabled = !v
-	
-	if !v:
-		label.text = "..."
 
-func start_resolve(members: Array) -> void:
+func start_resolve(members: Array) -> bool:
+	if expired:
+		return false
+	_deadline_active = false
 	_resolve_members = members
-	_countdown = resolve_seconds
+	_resolve_countdown = resolve_seconds
 	_resolving = true
 	set_process(true)
+	return true
 
 func _process(delta: float) -> void:
-	if not _resolving:
-		return
-	_countdown -= delta
-	label.text = str(ceili(_countdown))
-	if _countdown <= 0.0:
-		_resolving = false
-		set_process(false)
-		_do_resolve()
+	if _resolving:
+		_resolve_countdown -= delta
+		label.text = "..." + str(ceili(_resolve_countdown))
+		if _resolve_countdown <= 0.0:
+			_resolving = false
+			set_process(false)
+			_do_resolve()
+			
+	elif _deadline_active:
+		_deadline_countdown -= delta
+		label.text = "!" + str(ceili(_deadline_countdown))
+		if _deadline_countdown <= 0.0:
+			_deadline_active = false
+			set_process(false)
+			_on_deadline_expired()
+
+func _on_deadline_expired() -> void:
+	expired = true
+	_interactable = false
+	input_pickable = false
+	if collision:
+		collision.disabled = true
+	label.text = "X("
+	get_tree().create_timer(feedback_seconds).timeout.connect(queue_free)
+	resolved.emit(false)
 
 func _do_resolve() -> void:
 	var totals := {}
