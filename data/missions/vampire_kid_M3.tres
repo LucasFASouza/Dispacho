@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://ck0al07i0vitq"]
+
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1_0knng"]
+
+[resource]
+script = ExtResource("1_0knng")
+id = "vampire_kid_M3"
+mission_gravity = 2
+location = "ruinas"
+mission_text = "Precisamos realizar o ritual de purificação para impedir que a criança se torne um vampiro completo. O ritual exige um grande esforço físico e mental."
+success_text = "O ritual foi um sucesso! A criança está a salvo para ser picada por seres malignos no futuro!"
+error_text = "O ritual falhou e a criança escapou se transformando em morcego."
+missed_text = "O ritual não foi realizado. A criança fugiu se transformando em morcego."
+success_cases = [{
+"FOR": 4.0,
+"INT": 4.0
+}]
+in_failure = "vampire_kid_R2"

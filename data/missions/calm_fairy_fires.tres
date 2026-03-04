@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://cgpk83qltkqko"]
+
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1_amsiw"]
+
+[resource]
+script = ExtResource("1_amsiw")
+id = "calm_fairy_fires"
+starter = true
+location = "ruinas"
+mission_text = "Foram vistos fogos-fátuos chorando pelas ruínas. Suas crises emocionais podem causar incêndios. Precisamos de alguém de rápida respostas para acalmá-los."
+success_text = "Os fogos-fátuos foram acalmados e agora estão brilhando suavemente, iluminando as ruínas de maneira encantadora."
+error_text = "Não foi possível acalmar os fogos-fátuos. Felizmente, suas chamas não causaram grandes danos."
+missed_text = "Os fogos-fátuos continuaram a chorar e acabaram causando pequenos incêndios nas ruínas. Felizmente, os danos foram mínimos e o parque conseguiu controlar as chamas a tempo."
+success_cases = [{
+"CHA": 2.0,
+"DEX": 1.0
+}]

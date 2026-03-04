@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://cj8cjuy5kxmg2"]
+
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1_j7wq1"]
+
+[resource]
+script = ExtResource("1_j7wq1")
+id = "vampire_kid_M2"
+location = "fazenda"
+mission_text = "Talvez possamos usar nossos laboratórios para analisar as marcas no pescoço da criança. Precisaremos convencer os cientistas que sabemos o que estamos fazendo."
+success_text = "A análise revelou que a criança foi mordida por um morcego vampiro. Precisaremos realizar o ritual de purificação ainda hoje."
+error_text = "Os laboratórios não se mostraram muito receptivos a nossa presença."
+missed_text = "A criança não foi examinada. Ela parece ainda mais pálida e sensível à luz."
+success_cases = [{
+"INT": 3.0
+}, {
+"CHA": 3.0
+}]
+in_success = "vampire_kid_M3"
+in_failure = "vampire_kid_R2"

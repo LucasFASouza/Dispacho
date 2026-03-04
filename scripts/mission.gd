@@ -8,13 +8,17 @@ signal resolved(success: bool)
 @export var success_text: String = "Missão concluída com sucesso!"
 @export var fail_text: String = "A missão falhou."
 @export var missed_text: String = "Ninguém chegou a tempo."
-@export var attribute_thresholds: Dictionary = {}
+## Each element is one AND-condition; success if ANY passes (OR logic)
+@export var success_cases: Array = []
+@export var mission_gravity: int = 1
 @export var resolve_seconds: float = 5.0
-@export var feedback_seconds: float = 2.0
 @export var deadline_seconds: float = 30.0
 
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var label: Label = $Label
+
+## Reference kept so game.gd can read in_success / in_failure on confirm
+var source_data: MissionData = null
 
 var _interactable := true
 var _resolve_members: Array = []
@@ -27,6 +31,13 @@ var expired: bool = false
 var done: bool = false
 var resolved_success: bool = false
 var player_totals: Dictionary = {}
+
+const GRAVITY_COLORS := {
+	1: Color(0.75, 0.75, 0.75),  # grey
+	2: Color(1.0,  0.85, 0.1),   # yellow
+	3: Color(1.0,  0.5,  0.1),   # orange
+	4: Color(0.95, 0.2,  0.2),   # red
+}
 
 
 func _ready() -> void:
@@ -56,14 +67,16 @@ func _process(delta: float) -> void:
 
 # --- Public API ---
 
-func init_from_resource(entry: MissionQueueEntry) -> void:
-	var d := entry.data
-	mission_text = d.mission_text
-	success_text = d.success_text
-	fail_text = d.error_text
-	missed_text = d.missed_text
-	attribute_thresholds = d.attr_thresholds
-	deadline_seconds = entry.deadline
+func init_from_data(data: MissionData, deadline: float) -> void:
+	source_data    = data
+	mission_text   = data.mission_text
+	success_text   = data.success_text
+	fail_text      = data.error_text
+	missed_text    = data.missed_text
+	success_cases  = data.success_cases
+	mission_gravity  = data.mission_gravity
+	deadline_seconds = deadline
+	modulate = GRAVITY_COLORS.get(mission_gravity, Color.WHITE)
 
 func set_interactable(v: bool) -> void:
 	_interactable = v
@@ -103,10 +116,16 @@ func _do_resolve() -> void:
 		for attr in member["scores"]:
 			totals[attr] = totals.get(attr, 0) + member["scores"][attr]
 
-	var success = true
-	for attr in attribute_thresholds:
-		if totals.get(attr, 0) < attribute_thresholds[attr]:
-			success = false
+	# OR logic: succeed if at least one case has all its attrs met
+	var success := false
+	for case in success_cases:
+		var case_ok := true
+		for attr in case:
+			if totals.get(attr, 0) < case[attr]:
+				case_ok = false
+				break
+		if case_ok:
+			success = true
 			break
 
 	done = true

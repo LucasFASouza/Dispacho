@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="MemberData" load_steps=2 format=3]
-
-[ext_resource type="Script" path="res://scripts/member_data.gd" id="1"]
-
-[resource]
-script = ExtResource("1")
-member_name = "Gilledman"
-scores = {"STR": 1, "DEX": 0, "INT": 3, "CHA": 2, "CON": 1}

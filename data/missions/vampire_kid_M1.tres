@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://dqkacip58a8ug"]
+
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1_qyrxb"]
+
+[resource]
+script = ExtResource("1_qyrxb")
+id = "vampire_kid_M1"
+starter = true
+location = "floresta"
+mission_text = "Recebemos um chamado de procura e resgate de uma criança pela floresta. Ela brincava de caçar borboletas e morcegos quando se perdeu da trilha. Seja rápido ao manejar pela floresta e identifique traços que sirvam de pistas."
+success_text = "A criança foi encontrada e resgatada. Porém, ela parece ter se tornado um pouco mais pálida e sensível à luz do sol. Talvez devessemos examinar as marcas em seu pescoço."
+error_text = "A criança não foi encontrada. Mas a colônia de morcegos parecia mais agitada do que o normal."
+missed_text = "A criança não foi encontrada. Recebemos relatos de uma grande agitação na colônia de morcegos."
+success_cases = [{
+"DEX": 2.0,
+"INT": 2.0
+}]
+in_success = "vampire_kid_M2"
+in_failure = "vampire_kid_R1"

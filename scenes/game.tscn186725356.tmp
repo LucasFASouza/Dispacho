@@ -4,19 +4,20 @@
 [ext_resource type="Resource" uid="uid://dv5mv4k06lo16" path="res://data/missions/queue.tres" id="2_lbhrr"]
 [ext_resource type="Script" uid="uid://ki8opvy0kxsw" path="res://scripts/ui.gd" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://bx20p15pgul1o" path="res://scripts/member_data.gd" id="3_vtaks"]
-[ext_resource type="Resource" uid="uid://vtfgk4w0hlb0" path="res://data/members/bigfoot.tres" id="4_kvpfn"]
+[ext_resource type="Resource" path="res://data/members/bigfoot.tres" id="4_kvpfn"]
 [ext_resource type="Script" uid="uid://ckehygxlanfj1" path="res://scripts/mission_menu.gd" id="4_mmenu"]
-[ext_resource type="Resource" uid="uid://c5p5egmok3yna" path="res://data/members/chupacabra.tres" id="5_dinhu"]
-[ext_resource type="Resource" uid="uid://dtb83beo0m3s7" path="res://data/members/mothman.tres" id="7_trtic"]
-[ext_resource type="Resource" uid="uid://ds5fp005dn7pi" path="res://data/members/nessie.tres" id="8_ir15t"]
+[ext_resource type="Resource" path="res://data/members/chupacabra.tres" id="5_dinhu"]
+[ext_resource type="Resource" path="res://data/members/gilledman.tres" id="6_kvuet"]
+[ext_resource type="Resource" path="res://data/members/mothman.tres" id="7_trtic"]
+[ext_resource type="Resource" path="res://data/members/nessie.tres" id="8_ir15t"]
 [ext_resource type="Script" uid="uid://csegqv604t6w1" path="res://scripts/location.gd" id="9_loc"]
 
 [node name="Game" type="Node2D" unique_id=2123722845]
 script = ExtResource("1_yqjtg")
-recover_seconds = 10.0
-deadline_seconds = 15.0
+rest_seconds = 10.0
+recover_seconds = 15.0
 mission_queue_res = ExtResource("2_lbhrr")
-members_res = Array[ExtResource("3_vtaks")]([ExtResource("4_kvpfn"), ExtResource("5_dinhu"), ExtResource("7_trtic"), ExtResource("8_ir15t")])
+members_res = Array[ExtResource("3_vtaks")]([ExtResource("4_kvpfn"), ExtResource("5_dinhu"), ExtResource("6_kvuet"), ExtResource("7_trtic"), ExtResource("8_ir15t")])
 
 [node name="BG" type="ColorRect" parent="." unique_id=942862673]
 anchors_preset = 8
@@ -81,12 +82,12 @@ text = "Lago"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Fazenda" type="Node2D" parent="Locations" unique_id=1664747755]
+[node name="Pântano" type="Node2D" parent="Locations" unique_id=1664747755]
 position = Vector2(92, 12)
 script = ExtResource("9_loc")
-location_id = "fazenda"
+location_id = "pantano"
 
-[node name="Color2" type="ColorRect" parent="Locations/Fazenda" unique_id=176292517]
+[node name="Color2" type="ColorRect" parent="Locations/Pântano" unique_id=176292517]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -103,7 +104,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(0.31500003, 0.33449998, 0.9, 1)
 
-[node name="Label" type="Label" parent="Locations/Fazenda" unique_id=744550629]
+[node name="Label" type="Label" parent="Locations/Pântano" unique_id=744550629]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -114,16 +115,16 @@ offset_bottom = 9.999999
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.35, 0.35)
-text = "Fazenda"
+text = "Pântano"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Minas" type="Node2D" parent="Locations" unique_id=1895814741]
+[node name="Mina" type="Node2D" parent="Locations" unique_id=1895814741]
 position = Vector2(27, 36)
 script = ExtResource("9_loc")
-location_id = "minas"
+location_id = "mina"
 
-[node name="Color2" type="ColorRect" parent="Locations/Minas" unique_id=348919400]
+[node name="Color2" type="ColorRect" parent="Locations/Mina" unique_id=348919400]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -140,7 +141,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(0.31500003, 0.33449998, 0.9, 1)
 
-[node name="Label" type="Label" parent="Locations/Minas" unique_id=1825082257]
+[node name="Label" type="Label" parent="Locations/Mina" unique_id=1825082257]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://bwt4hllcr5rnv"]
+
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1_ussl3"]
+
+[resource]
+script = ExtResource("1_ussl3")
+id = "vampire_kid_R2"
+mission_gravity = 3
+location = "acampamento"
+mission_text = "Um pequeno vampiro está atacando o acampamento! Precisamos encontrar uma maneira de parar o ataque e proteger os acampantes."
+success_text = "A criança foi detida e acalmada. Ela está segura e viverá bem... para sempre. Nossos laboratórios concordaram em prover sangue sintético para mantê-la alimentada e segura."
+error_text = "A criança se tornou agressiva e difícil de controlar. Ela conseguiu escapar do acampamento. Mandamos um passe anual aos pais que possam visitá-la no futuro."
+missed_text = "A criança destruiu boa parte do acampamento antes de se cansar e sair voando. Mandamos um passe anual aos pais que possam visitá-la no futuro."
+success_cases = [{
+"DEX": 4.0,
+"FOR": 4.0
+}, {
+"CHA": 4.0,
+"INT": 3.0
+}]

@@ -10,7 +10,7 @@ signal ok_pressed(mission: Mission)
 @onready var player_scores: VBoxContainer = $HBoxContainer/PlayerScores
 @onready var target_scores: VBoxContainer = $HBoxContainer/TargetScores
 
-const ATTR_LABELS := {"STR": "Força", "DEX": "Destreza", "INT": "Inteligência", "CHA": "Carisma", "CON": "Constituição"}
+const ATTR_LABELS := {"FOR": "Força", "DEX": "Destreza", "INT": "Inteligência", "CHA": "Carisma"}
 const ATTR_MAX := 10
 const AttContainerScene := preload("res://scenes/att_container.tscn")
 
@@ -48,11 +48,10 @@ func show_active(mission: Mission) -> void:
 
 	mission_label.text = mission.mission_text
 	unit_selector.visible = true
-	target_scores.visible = false
 	send_button.text = "Enviar"
 	send_button.visible = true
 
-	# rebuild player_scores containers (may have been freed by a previous review)
+	# Rebuild player_scores
 	for child in player_scores.get_children():
 		child.queue_free()
 	_att_containers.clear()
@@ -62,6 +61,11 @@ func show_active(mission: Mission) -> void:
 		container.setup(ATTR_LABELS[attr], ATTR_MAX)
 		_att_containers[attr] = container
 	player_scores.visible = true
+
+	# Hide target scores during assignment
+	for child in target_scores.get_children():
+		child.queue_free()
+	target_scores.visible = false
 
 	for child in unit_selector.get_children():
 		if child is CheckButton:
@@ -96,13 +100,20 @@ func show_review(mission: Mission) -> void:
 
 	for child in target_scores.get_children():
 		child.queue_free()
-	for attr in ATTR_LABELS:
-		var threshold: int = mission.attribute_thresholds.get(attr, 0)
-		if threshold > 0:
-			var container := AttContainerScene.instantiate()
-			target_scores.add_child(container)
-			container.setup(ATTR_LABELS[attr], ATTR_MAX)
-			container.set_score(threshold)
+	var first_case := true
+	for success_case in mission.success_cases:
+		if not first_case:
+			var or_label := Label.new()
+			or_label.text = "OU"
+			target_scores.add_child(or_label)
+		first_case = false
+		for attr in ATTR_LABELS:
+			var threshold: int = success_case.get(attr, 0)
+			if threshold > 0:
+				var container := AttContainerScene.instantiate()
+				target_scores.add_child(container)
+				container.setup(ATTR_LABELS[attr], ATTR_MAX)
+				container.set_score(threshold)
 	target_scores.visible = true
 
 	visible = true

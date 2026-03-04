@@ -1,8 +1,13 @@
-[gd_resource type="Resource" script_class="MemberData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="MemberData" format=3 uid="uid://dtb83beo0m3s7"]
 
-[ext_resource type="Script" path="res://scripts/member_data.gd" id="1"]
+[ext_resource type="Script" uid="uid://bx20p15pgul1o" path="res://scripts/member_data.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
 member_name = "Mothman"
-scores = {"STR": 0, "DEX": 3, "INT": 2, "CHA": 1, "CON": 1}
+scores = {
+"CHA": 3,
+"DEX": 2,
+"FOR": 0,
+"INT": 1
+}

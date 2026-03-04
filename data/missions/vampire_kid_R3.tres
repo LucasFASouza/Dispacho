@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://c11fy64jakstr"]
+
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1_t2380"]
+
+[resource]
+script = ExtResource("1_t2380")
+id = "vampire_kid_R3"
+mission_gravity = 4
+location = "acampamento"
+mission_text = "Uma colônia de morcegos e outros animais transformados estão atacando sob domínio de um pequeno vampiro! Precisamos agir de imediato!"
+success_text = "O ataque foi contido e os animais foram acalmados. O pequeno vampiro está seguro e viverá bem... para sempre. Nossos laboratórios concordaram em prover sangue sintético para mantê-lo alimentado e seguro."
+error_text = "O ataque dizimou o acampamento por completo. Incontáveis mortos e feridos. É o fim para o parque."
+missed_text = "O ataque dizimou o acampamento por completo. Incontáveis mortos e feridos. É o fim para o parque."
+success_cases = [{
+"DEX": 5.0,
+"FOR": 5.0,
+"INT": 4.0
+}]

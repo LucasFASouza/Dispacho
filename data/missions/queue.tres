@@ -1,31 +1,13 @@
 [gd_resource type="Resource" script_class="MissionQueueResource" format=3 uid="uid://dv5mv4k06lo16"]
 
 [ext_resource type="Script" uid="uid://qt23ssn6ok5i" path="res://scripts/mission_queue_resource.gd" id="1"]
-[ext_resource type="Script" uid="uid://cem0kmu6olv1m" path="res://scripts/mission_queue_entry.gd" id="2"]
-[ext_resource type="Resource" uid="uid://dj6jryy7a75jk" path="res://data/missions/ration_bags.tres" id="3"]
-[ext_resource type="Resource" uid="uid://dhonkhjq0qtb7" path="res://data/missions/blue_hedgehog.tres" id="4"]
-[ext_resource type="Resource" uid="uid://b3n5kdjex43l0" path="res://data/missions/goblin_cubes.tres" id="5"]
-
-[sub_resource type="Resource" id="SubResource_1"]
-script = ExtResource("2")
-data = ExtResource("3")
-deadline = 20.0
-location_id = "lago"
-
-[sub_resource type="Resource" id="SubResource_2"]
-script = ExtResource("2")
-data = ExtResource("4")
-spawn_time = 2.5
-deadline = 20.0
-location_id = "ruinas"
-
-[sub_resource type="Resource" id="SubResource_3"]
-script = ExtResource("2")
-data = ExtResource("5")
-spawn_time = 3.0
-deadline = 20.0
-location_id = "pantano"
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1_04i68"]
+[ext_resource type="Resource" uid="uid://dqkacip58a8ug" path="res://data/missions/vampire_kid_M1.tres" id="2_x7gr3"]
+[ext_resource type="Resource" uid="uid://cgpk83qltkqko" path="res://data/missions/calm_fairy_fires.tres" id="3_8igut"]
+[ext_resource type="Resource" uid="uid://db5ry80gem1yn" path="res://data/missions/replace_signs.tres" id="4_g6awi"]
 
 [resource]
 script = ExtResource("1")
-entries = Array[ExtResource("2")]([SubResource("SubResource_1"), SubResource("SubResource_2"), SubResource("SubResource_3")])
+entries = Array[ExtResource("1_04i68")]([ExtResource("2_x7gr3"), ExtResource("3_8igut"), ExtResource("4_g6awi")])
+min_wait = 2.0
+max_wait = 8.0

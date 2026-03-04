@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://dw1r3k7on35bu"]
+
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1_w61ce"]
+
+[resource]
+script = ExtResource("1_w61ce")
+id = "vampire_kid_R1"
+mission_gravity = 2
+location = "floresta"
+mission_text = "Pequenos animais foram encontrados mortos, com feridas no pescoço. Temos razão para ligar o caso com a criança desaparecida e a colônia de morcegos. Precisamos de alguém para adentrar a floresta e investigar o que está acontecendo."
+success_text = "Encontramos sinais de um pequeno novo vampiro. Devemos ficar em alerta."
+error_text = "Novamente, os rastros não nos levaram a lugar nenhum."
+missed_text = "Não fomos investigar."
+success_cases = [{
+"FOR": 3.0,
+"INT": 3.0
+}]
+in_success = "vampire_kid_R2"
+in_failure = "vampire_kid_R3"

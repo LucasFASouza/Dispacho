@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://db5ry80gem1yn"]
+
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1_mivpp"]
+
+[resource]
+script = ExtResource("1_mivpp")
+id = "replace_signs"
+starter = true
+location = "minas"
+mission_text = "As placas de sinalização da antiga mineradora estão ilegíveis. Arranquem as antigas e repliquem seus símbolos cravando diretamente nas pedras."
+success_text = "As placas foram substituídas e agora os visitantes podem se orientar melhor. O parque agradece a ajuda!"
+error_text = "As gravações ficaram confusas. O lado bom é que os visitantes estavam acostumados a não conseguir ler as placas mesmo."
+missed_text = "A esse ponto os visitantes devem ter se acostumado a não confiarem nas placas por lá."
+success_cases = [{
+"FOR": 2.0,
+"INT": 1.0
+}]
