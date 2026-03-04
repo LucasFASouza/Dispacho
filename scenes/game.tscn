@@ -14,7 +14,6 @@
 [node name="Game" type="Node2D" unique_id=2123722845]
 script = ExtResource("1_yqjtg")
 recover_seconds = 10.0
-deadline_seconds = 15.0
 mission_queue_res = ExtResource("2_lbhrr")
 members_res = Array[ExtResource("3_vtaks")]([ExtResource("4_kvpfn"), ExtResource("5_dinhu"), ExtResource("7_trtic"), ExtResource("8_ir15t")])
 

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://b6xcikpo5bm71"]
+
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1_6p7xn"]
+
+[resource]
+script = ExtResource("1_6p7xn")
+id = "ration_bags"
+starter = true
+location = "fazenda"
+mission_text = "Parece que os sacos de sal grosso para alimentar os cervos espectrais estão acabando. Seria prudente enviarmos alguém para carregar alguns sacos do depósito para o celeiro."
+success_text = "Os sacos de sal grosso foram transportados com sucesso para o celeiro. Os cervos espectrais agora têm o que precisam para se manterem saudáveis e brilhantes para os visitantes."
+error_text = "O transporte dos sacos de sal grosso não foi bem-sucedido. Parece que teremos uma hibernação fora de época para os cervos espectrais."
+missed_text = "Os sacos de sal grosso não foram transportados. Parece que teremos uma hibernação fora de época para os cervos espectrais."
+success_cases = [{
+"DEX": 1.0,
+"FOR": 2.0
+}]

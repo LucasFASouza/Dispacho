@@ -8,7 +8,6 @@ signal resolved(success: bool)
 @export var success_text: String = "Missão concluída com sucesso!"
 @export var fail_text: String = "A missão falhou."
 @export var missed_text: String = "Ninguém chegou a tempo."
-## Each element is one AND-condition; success if ANY passes (OR logic)
 @export var success_cases: Array = []
 @export var mission_gravity: int = 1
 @export var resolve_seconds: float = 5.0
@@ -31,13 +30,6 @@ var expired: bool = false
 var done: bool = false
 var resolved_success: bool = false
 var player_totals: Dictionary = {}
-
-const GRAVITY_COLORS := {
-	1: Color(0.75, 0.75, 0.75),  # grey
-	2: Color(1.0,  0.85, 0.1),   # yellow
-	3: Color(1.0,  0.5,  0.1),   # orange
-	4: Color(0.95, 0.2,  0.2),   # red
-}
 
 
 func _ready() -> void:
@@ -76,7 +68,6 @@ func init_from_data(data: MissionData, deadline: float) -> void:
 	success_cases  = data.success_cases
 	mission_gravity  = data.mission_gravity
 	deadline_seconds = deadline
-	modulate = GRAVITY_COLORS.get(mission_gravity, Color.WHITE)
 
 func set_interactable(v: bool) -> void:
 	_interactable = v

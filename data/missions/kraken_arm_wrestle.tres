@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://c0mamef5p86jy"]
+
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1_maa4v"]
+
+[resource]
+script = ExtResource("1_maa4v")
+id = "kraken_arm_wrestle"
+starter = true
+location = "lago"
+mission_text = "Buscando enriquecimento, o parque está promovendo quedas de braço contra o kraken do lago. Precisamos enviar um campeão para entreter a plateia e desafiar os tentáculos."
+success_text = "O campeão energizou o público em uma grande disputa contra o kraken. E, mais importante, este gastou toda sua energia e terá uma noite tranquila de sono."
+error_text = "O evento não foi tão interessante, nem para o kraken, nem para o público. Talvez devessemos só comprar uma bola nova."
+missed_text = "O evento não aconteceu. O kraken parece estar entediado."
+success_cases = [{
+"CHA": 2.0,
+"FOR": 1.0
+}]

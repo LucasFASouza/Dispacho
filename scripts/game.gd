@@ -9,6 +9,7 @@ var _locations: Dictionary = {}
 @export var rest_seconds: float = 5.0
 @export var recover_seconds: float = 12.0
 @export var deadline_seconds: float = 30.0
+@export var max_missions: int = 3
 @export var mission_queue_res: MissionQueueResource
 
 @export var members_res: Array[MemberData]
@@ -49,7 +50,6 @@ func _ready() -> void:
 	ui.send_pressed.connect(_on_send_pressed)
 	ui.ok_pressed.connect(_on_ok_pressed)
 
-	# Build full mission registry by scanning res://data/missions/
 	var dir := DirAccess.open("res://data/missions/")
 	if dir:
 		dir.list_dir_begin()
@@ -64,9 +64,11 @@ func _ready() -> void:
 	else:
 		push_error("Game: could not open res://data/missions/")
 
-	# Seed pending queue with starters in authored order
-	for data: MissionData in mission_queue_res.entries:
-		_pending_queue.append(data)
+	# Seed queue with all starter missions from the registry (shuffled)
+	for res: MissionData in _mission_registry.values():
+		if res.starter:
+			_pending_queue.append(res)
+	_pending_queue.shuffle()
 
 	_roll_queue_timer()
 	set_process(true)
@@ -82,24 +84,44 @@ func _process(delta: float) -> void:
 			_queue_timer = 2.0
 
 
-## Scans the pending queue front-to-back and spawns the first entry whose
-## target location is currently free. Blocked entries stay in place.
-## Returns true if something was spawned (timer should be rolled).
+func _active_mission_count() -> int:
+	var count := 0
+	for loc: Location in _locations.values():
+		if not loc.is_available():
+			count += 1
+	return count
+
+
+## Picks a random queued mission whose location is currently free and spawns it,
+## provided the number of active missions is below max_missions.
+## Returns true when something was spawned (timer will be re-rolled by caller).
 func _try_spawn_next() -> bool:
-	for i in _pending_queue.size():
+	if _active_mission_count() >= max_missions:
+		return false
+
+	# Collect indices of candidates whose target location is free
+	var candidates: Array[int] = []
+	var i := 0
+	while i < _pending_queue.size():
 		var data: MissionData = _pending_queue[i]
 		var loc: Location = _locations.get(data.location)
 		if loc == null:
 			push_error("Location not found: " + data.location)
 			_pending_queue.remove_at(i)
-			_roll_queue_timer()
-			return true
+			continue
 		if loc.is_available():
-			_pending_queue.remove_at(i)
-			_spawn_mission_data(data)
-			_roll_queue_timer()
-			return true
-	return false
+			candidates.append(i)
+		i += 1
+
+	if candidates.is_empty():
+		return false
+
+	var pick: int = candidates[randi() % candidates.size()]
+	var data: MissionData = _pending_queue[pick]
+	_pending_queue.remove_at(pick)
+	_spawn_mission_data(data)
+	_roll_queue_timer()
+	return true
 
 
 func _spawn_mission_data(data: MissionData) -> void:

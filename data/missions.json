@@ -1,35 +1,129 @@
 [
   {
-    "id": "ration_bags",
-    "spawn_time": 2.0,
-    "deadline": 20.0,
-    "location": "lago",
-    "mission_text": "Parece que os sacos de ração acabaram mais rápido essa semana. Precisamos de um carregamento emergencial antes que os ursos-coruja decidam mudar sua dieta. Tomem cuidado, os sacos podem ser pesados, e podem atrair atenção indesejada de seres acima.",
-    "success_text": "Os ursos-corujas terão seu jantar garantido pelos próximos dias.",
-    "error_text": "Parece que a carga foi derrubada pelo caminho... Alguém sabe se os ursos-coruja fazem dieta?",
-    "missed_text": "Parece que os ursos-coruja foram atrás de seu próprio jantar. Atenção aos salmões e sementes de girassol.",
-    "attr_thresholds": { "STR": 3, "DEX": 2 }
+    "id": "replace_signs",
+    "starter": true,
+    "mission_gravity": 1,
+    "location": "minas",
+    "mission_text": "As placas de sinalização da antiga mineradora estão ilegíveis. Arranquem as antigas e repliquem seus símbolos cravando diretamente nas pedras.",
+    "success_text": "As placas foram substituídas e agora os visitantes podem se orientar melhor. O parque agradece a ajuda!",
+    "error_text": "As gravações ficaram confusas. O lado bom é que os visitantes estavam acostumados a não conseguir ler as placas mesmo.",
+    "missed_text": "A esse ponto os visitantes devem ter se acostumado a não confiarem nas placas por lá.",
+    "success_cases": [{ "FOR": 2, "INT": 1 }]
   },
   {
-    "id": "blue_hedgehog",
-    "spawn_time": 2.5,
-    "deadline": 20.0,
+    "id": "calm_fairy_fires",
+    "starter": true,
+    "mission_gravity": 1,
     "location": "ruinas",
-    "mission_text": "Um ouriço azul está preso em cima de uma árvore. Ele parece estar com medo de descer. Precisamos de alguém para acalmá-lo e ajudá-lo a descer em segurança.",
-    "success_text": "O ouriço foi salvo e saiu correndo... estranhamento rápido.",
-    "error_text": "O ouriço foi assustado e entrou em super-nova. Ele não é mais um problema, mas também não é mais um ouriço.",
-    "missed_text": "O ouriço não conseguiu se segurar e acabou caindo. Achamos apenas alguns aneis no chão, deveríamos nos preocupar?",
-    "attr_thresholds": { "CHA": 3, "CON": 2 }
+    "mission_text": "Foram vistos fogos-fátuos chorando pelas ruínas. Suas crises emocionais podem causar incêndios. Precisamos de alguém de rápida respostas para acalmá-los.",
+    "success_text": "Os fogos-fátuos foram acalmados e agora estão brilhando suavemente, iluminando as ruínas de maneira encantadora.",
+    "error_text": "Não foi possível acalmar os fogos-fátuos. Felizmente, suas chamas não causaram grandes danos.",
+    "missed_text": "Os fogos-fátuos continuaram a chorar e acabaram causando pequenos incêndios nas ruínas. Felizmente, os danos foram mínimos e o parque conseguiu controlar as chamas a tempo.",
+    "success_cases": [{ "CHA": 2, "DEX": 1 }]
   },
   {
-    "id": "goblin_cubes",
-    "spawn_time": 3.0,
-    "deadline": 20.0,
-    "location": "pantano",
-    "mission_text": "O som de goblins chorando por não conseguirem resolver cubos-mágicos está incomodando a fauna local. Como foi que eles conseguiram os cubos, aliás?",
-    "success_text": "O algoritmo de resolução de cubos-mágicos foi ensinado didáticamente. Paulo Freire estaria orgulhoso.",
-    "error_text": "Aparentemente aqueles objetos geométricos mágicos são difíceis de resolver para uma grande gama de espécies.",
-    "missed_text": "O silêncio repentino e peças coloridas flutuando no rio indicam que os goblins encontraram uma solução alternativa.",
-    "attr_thresholds": { "INT": 3, "CHA": 2 }
+    "id": "ration_bags",
+    "starter": true,
+    "mission_gravity": 1,
+    "location": "fazenda",
+    "mission_text": "Parece que os sacos de sal grosso para alimentar os cervos espectrais estão acabando. Seria prudente enviarmos alguém para carregar alguns sacos do depósito para o celeiro.",
+    "success_text": "Os sacos de sal grosso foram transportados com sucesso para o celeiro. Os cervos espectrais agora têm o que precisam para se manterem saudáveis e brilhantes para os visitantes.",
+    "error_text": "O transporte dos sacos de sal grosso não foi bem-sucedido. Parece que teremos uma hibernação fora de época para os cervos espectrais.",
+    "missed_text": "Os sacos de sal grosso não foram transportados. Parece que teremos uma hibernação fora de época para os cervos espectrais.",
+    "success_cases": [{ "FOR": 2, "DEX": 1 }]
+  },
+  {
+    "id": "kraken_arm_wrestle",
+    "starter": true,
+    "mission_gravity": 1,
+    "location": "lago",
+    "mission_text": "Buscando enriquecimento, o parque está promovendo quedas de braço contra o kraken do lago. Precisamos enviar um campeão para entreter a plateia e desafiar os tentáculos.",
+    "success_text": "O campeão energizou o público em uma grande disputa contra o kraken. E, mais importante, este gastou toda sua energia e terá uma noite tranquila de sono.",
+    "error_text": "O evento não foi tão interessante, nem para o kraken, nem para o público. Talvez devessemos só comprar uma bola nova.",
+    "missed_text": "O evento não aconteceu. O kraken parece estar entediado.",
+    "success_cases": [{ "CHA": 2, "FOR": 1 }]
+  },
+  {
+    "id": "catch_dragonfly",
+    "starter": true,
+    "mission_gravity": 1,
+    "location": "acampamento",
+    "mission_text": "Uma libélula gigante tem causado problemas no acampamento. Precisamos de alguém para empunhar nossa grande rede e capturá-la antes que ela cause mais danos.",
+    "success_text": "A libélula gigante foi capturada com sucesso. Nossa fazenda logo terá uma nova atração.",
+    "error_text": "A tentativa de capturar a libélula gigante falhou. Felizmente, ela não causou danos significativos antes de sair voando rumo ao horizonte.",
+    "missed_text": "A libélula gigante não foi capturada. Felizmente, ela não causou danos significativos antes de sair voando rumo ao horizonte.",
+    "success_cases": [{ "DEX": 2, "FOR": 1 }]
+  },
+
+  {
+    "id": "vampire_kid_M1",
+    "starter": true,
+    "mission_gravity": 1,
+    "location": "floresta",
+    "mission_text": "Recebemos um chamado de procura e resgate de uma criança pela floresta. Ela brincava de caçar borboletas e morcegos quando se perdeu da trilha. Seja rápido ao manejar pela floresta e identifique traços que sirvam de pistas.",
+    "success_text": "A criança foi encontrada e resgatada. Porém, ela parece ter se tornado um pouco mais pálida e sensível à luz do sol. Talvez devessemos examinar as marcas em seu pescoço.",
+    "error_text": "A criança não foi encontrada. Mas a colônia de morcegos parecia mais agitada do que o normal.",
+    "missed_text": "A criança não foi encontrada. Recebemos relatos de uma grande agitação na colônia de morcegos.",
+    "success_cases": [{ "INT": 2, "DEX": 2 }],
+    "in_success": "vampire_kid_M2",
+    "in_failure": "vampire_kid_R1"
+  },
+  {
+    "id": "vampire_kid_M2",
+    "mission_gravity": 1,
+    "location": "fazenda",
+    "mission_text": "Talvez possamos usar nossos laboratórios para analisar as marcas no pescoço da criança. Precisaremos convencer os cientistas que sabemos o que estamos fazendo.",
+    "success_text": "A análise revelou que a criança foi mordida por um morcego vampiro. Precisaremos realizar o ritual de purificação ainda hoje.",
+    "error_text": "Os laboratórios não se mostraram muito receptivos a nossa presença.",
+    "missed_text": "A criança não foi examinada. Ela parece ainda mais pálida e sensível à luz.",
+    "success_cases": [{ "INT": 3 }, { "CHA": 3 }],
+    "in_success": "vampire_kid_M3",
+    "in_failure": "vampire_kid_R2"
+  },
+  {
+    "id": "vampire_kid_M3",
+    "mission_gravity": 2,
+    "location": "ruinas",
+    "mission_text": "Precisamos realizar o ritual de purificação para impedir que a criança se torne um vampiro completo. O ritual exige um grande esforço físico e mental.",
+    "success_text": "O ritual foi um sucesso! A criança está a salvo para ser picada por seres malignos no futuro!",
+    "error_text": "O ritual falhou e a criança escapou se transformando em morcego.",
+    "missed_text": "O ritual não foi realizado. A criança fugiu se transformando em morcego.",
+    "success_cases": [{ "FOR": 4, "INT": 4 }],
+    "in_failure": "vampire_kid_R2"
+  },
+  {
+    "id": "vampire_kid_R1",
+    "mission_gravity": 2,
+    "location": "floresta",
+    "mission_text": "Pequenos animais foram encontrados mortos, com feridas no pescoço. Temos razão para ligar o caso com a criança desaparecida e a colônia de morcegos. Precisamos de alguém para adentrar a floresta e investigar o que está acontecendo.",
+    "success_text": "Encontramos sinais de um pequeno novo vampiro. Devemos ficar em alerta.",
+    "error_text": "Novamente, os rastros não nos levaram a lugar nenhum.",
+    "missed_text": "Não fomos investigar.",
+    "success_cases": [{ "INT": 3, "FOR": 3 }],
+    "in_success": "vampire_kid_R2",
+    "in_failure": "vampire_kid_R3"
+  },
+  {
+    "id": "vampire_kid_R2",
+    "mission_gravity": 3,
+    "location": "acampamento",
+    "mission_text": "Um pequeno vampiro está atacando o acampamento! Precisamos encontrar uma maneira de parar o ataque e proteger os acampantes.",
+    "success_text": "A criança foi detida e acalmada. Ela está segura e viverá bem... para sempre. Nossos laboratórios concordaram em prover sangue sintético para mantê-la alimentada e segura.",
+    "error_text": "A criança se tornou agressiva e difícil de controlar. Ela conseguiu escapar do acampamento. Mandamos um passe anual aos pais que possam visitá-la no futuro.",
+    "missed_text": "A criança destruiu boa parte do acampamento antes de se cansar e sair voando. Mandamos um passe anual aos pais que possam visitá-la no futuro.",
+    "success_cases": [
+      { "FOR": 4, "DEX": 4 },
+      { "INT": 3, "CHA": 4 }
+    ]
+  },
+  {
+    "id": "vampire_kid_R3",
+    "mission_gravity": 4,
+    "location": "acampamento",
+    "mission_text": "Uma colônia de morcegos e outros animais transformados estão atacando sob domínio de um pequeno vampiro! Precisamos agir de imediato!",
+    "success_text": "O ataque foi contido e os animais foram acalmados. O pequeno vampiro está seguro e viverá bem... para sempre. Nossos laboratórios concordaram em prover sangue sintético para mantê-lo alimentado e seguro.",
+    "error_text": "O ataque dizimou o acampamento por completo. Incontáveis mortos e feridos. É o fim para o parque.",
+    "missed_text": "O ataque dizimou o acampamento por completo. Incontáveis mortos e feridos. É o fim para o parque.",
+    "success_cases": [{ "FOR": 5, "DEX": 5, "INT": 4 }]
   }
 ]

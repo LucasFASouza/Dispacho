@@ -1,10 +1,10 @@
-## Run this script (File > Run) to regenerate data/missions/*.tres from missions_new.json.
+## Run this script (File > Run) to regenerate data/missions/*.tres from missions.json.
 ## After running, assign the .tres files to MissionQueueResource and Game in the Inspector.
 ## NOTE: queue.tres must be hand-authored — assign the desired starter missions via the Inspector.
 @tool
 extends EditorScript
 
-const MISSIONS_JSON := "res://data/missions_new.json"
+const MISSIONS_JSON := "res://data/missions.json"
 const OUTPUT_DIR := "res://data/missions/"
 
 

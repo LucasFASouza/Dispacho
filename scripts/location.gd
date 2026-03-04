@@ -3,7 +3,13 @@ class_name Location
 
 @export var location_id: String = ""
 
+@onready var location_name_label: Label = $Label
+
 var current_mission: Mission = null
+
+
+func _ready() -> void:
+	location_name_label.text = location_id
 
 
 func is_available() -> bool:

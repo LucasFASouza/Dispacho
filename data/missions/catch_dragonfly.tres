@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://ciyv0u1yrs4ms"]
+
+[ext_resource type="Script" uid="uid://c0h7kg580atp7" path="res://scripts/mission_data.gd" id="1_o3jfx"]
+
+[resource]
+script = ExtResource("1_o3jfx")
+id = "catch_dragonfly"
+starter = true
+location = "acampamento"
+mission_text = "Uma libélula gigante tem causado problemas no acampamento. Precisamos de alguém para empunhar nossa grande rede e capturá-la antes que ela cause mais danos."
+success_text = "A libélula gigante foi capturada com sucesso. Nossa fazenda logo terá uma nova atração."
+error_text = "A tentativa de capturar a libélula gigante falhou. Felizmente, ela não causou danos significativos antes de sair voando rumo ao horizonte."
+missed_text = "A libélula gigante não foi capturada. Felizmente, ela não causou danos significativos antes de sair voando rumo ao horizonte."
+success_cases = [{
+"DEX": 2.0,
+"FOR": 1.0
+}]
