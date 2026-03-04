@@ -1,6 +1,7 @@
 [
   {
     "id": "replace_signs",
+    "starter": true,
     "gravity": 1,
     "location": "minas",
     "mission_text": "As placas de sinalização da antiga mineradora estão ilegíveis. Arranquem as antigas e repliquem seus símbolos cravando diretamente nas pedras.",
@@ -10,12 +11,19 @@
     "success_cases": [{ "FOR": 2, "INT": 1 }]
   },
   {
-    "id": "calm_spirits",
+    "id": "calm_fairy_fires",
+    "starter": true,
     "gravity": 1,
     "location": "ruinas",
+    "mission_text": "Foram vistos fogos-fátuos chorando pelas ruínas. Suas crises emocionais podem causar incêndios. Precisamos de alguém de rápida respostas para acalmá-los.",
+    "success_text": "Os fogos-fátuos foram acalmados e agora estão brilhando suavemente, iluminando as ruínas de maneira encantadora.",
+    "error_text": "Não foi possível acalmar os fogos-fátuos. Felizmente, suas chamas não causaram grandes danos.",
+    "missed_text": "Os fogos-fátuos continuaram a chorar e acabaram causando pequenos incêndios nas ruínas. Felizmente, os danos foram mínimos e o parque conseguiu controlar as chamas a tempo.",
+    "success_cases": [{ "CHA": 2, "DEX": 1 }]
   },
   {
-    "id": "vampire_kid_START",
+    "id": "vampire_kid_M1",
+    "starter": true,
     "gravity": 1,
     "location": "floresta",
     "mission_text": "Recebemos um chamado de procura e resgate de uma criança pela floresta. Ela brincava de caçar borboletas e morcegos quando se perdeu da trilha. Seja rápido ao manejar pela floresta e identifique traços que sirvam de pistas.",
