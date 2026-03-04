@@ -10,7 +10,7 @@
 [ext_resource type="Resource" path="res://data/members/gilledman.tres" id="6_kvuet"]
 [ext_resource type="Resource" path="res://data/members/mothman.tres" id="7_trtic"]
 [ext_resource type="Resource" path="res://data/members/nessie.tres" id="8_ir15t"]
-[ext_resource type="Script" path="res://scripts/location.gd" id="9_loc"]
+[ext_resource type="Script" uid="uid://csegqv604t6w1" path="res://scripts/location.gd" id="9_loc"]
 
 [node name="Game" type="Node2D" unique_id=2123722845]
 script = ExtResource("1_yqjtg")
@@ -46,9 +46,9 @@ zoom = Vector2(5, 5)
 [node name="Locations" type="Node2D" parent="." unique_id=1532545713]
 
 [node name="Lago" type="Node2D" parent="Locations" unique_id=124179121]
+position = Vector2(-96, -24)
 script = ExtResource("9_loc")
 location_id = "lago"
-position = Vector2(-79, -31)
 
 [node name="Color2" type="ColorRect" parent="Locations/Lago" unique_id=53865841]
 anchors_preset = 8
@@ -83,9 +83,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Pântano" type="Node2D" parent="Locations" unique_id=1664747755]
+position = Vector2(92, 12)
 script = ExtResource("9_loc")
 location_id = "pantano"
-position = Vector2(86, 24)
 
 [node name="Color2" type="ColorRect" parent="Locations/Pântano" unique_id=176292517]
 anchors_preset = 8
@@ -120,9 +120,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Mina" type="Node2D" parent="Locations" unique_id=1895814741]
+position = Vector2(27, 36)
 script = ExtResource("9_loc")
 location_id = "mina"
-position = Vector2(87, -31)
 
 [node name="Color2" type="ColorRect" parent="Locations/Mina" unique_id=348919400]
 anchors_preset = 8
@@ -158,9 +158,9 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Ruinas" type="Node2D" parent="Locations" unique_id=512279702]
+position = Vector2(-58, 24)
 script = ExtResource("9_loc")
 location_id = "ruinas"
-position = Vector2(-75, 25)
 
 [node name="Color2" type="ColorRect" parent="Locations/Ruinas" unique_id=198001929]
 anchors_preset = 8
@@ -196,9 +196,9 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Acampamento" type="Node2D" parent="Locations" unique_id=248916954]
+position = Vector2(-24, -48)
 script = ExtResource("9_loc")
 location_id = "acampamento"
-position = Vector2(1, 37)
 
 [node name="Color2" type="ColorRect" parent="Locations/Acampamento" unique_id=1489192965]
 anchors_preset = 8
@@ -234,9 +234,9 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Floresta" type="Node2D" parent="Locations" unique_id=2052808448]
+position = Vector2(57, -40)
 script = ExtResource("9_loc")
 location_id = "floresta"
-position = Vector2(1, -46)
 
 [node name="Color2" type="ColorRect" parent="Locations/Floresta" unique_id=235939621]
 anchors_preset = 8
@@ -272,7 +272,6 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="HQ" type="Node2D" parent="." unique_id=725684295]
-position = Vector2(0, -4)
 
 [node name="Color" type="ColorRect" parent="HQ" unique_id=20712583]
 anchors_preset = 8

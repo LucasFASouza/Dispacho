@@ -34,9 +34,14 @@ func _process(delta: float) -> void:
 		set_process(false)
 		return
 
-	global_position = global_position.move_toward(_target_pos, speed * delta)
+	var diff := _target_pos - global_position
+	var step := speed * delta
 
-	if global_position.distance_to(_target_pos) <= 0.5:
+	if abs(diff.x) > 0.5:
+		global_position.x = move_toward(global_position.x, _target_pos.x, step)
+	elif abs(diff.y) > 0.5:
+		global_position.y = move_toward(global_position.y, _target_pos.y, step)
+	else:
 		global_position = _target_pos
 		_moving = false
 		set_process(false)

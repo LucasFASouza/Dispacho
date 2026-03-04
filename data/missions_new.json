@@ -1,0 +1,87 @@
+[
+  {
+    "id": "replace_signs",
+    "gravity": 1,
+    "location": "minas",
+    "mission_text": "As placas de sinalização da antiga mineradora estão ilegíveis. Arranquem as antigas e repliquem seus símbolos cravando diretamente nas pedras.",
+    "success_text": "As placas foram substituídas e agora os visitantes podem se orientar melhor. O parque agradece a ajuda!",
+    "error_text": "As gravações ficaram confusas. O lado bom é que os visitantes estavam acostumados a não conseguir ler as placas mesmo.",
+    "missed_text": "A esse ponto os visitantes devem ter se acostumado a não confiarem nas placas por lá.",
+    "success_cases": [{ "FOR": 2, "INT": 1 }]
+  },
+  {
+    "id": "calm_spirits",
+    "gravity": 1,
+    "location": "ruinas",
+  },
+  {
+    "id": "vampire_kid_START",
+    "gravity": 1,
+    "location": "floresta",
+    "mission_text": "Recebemos um chamado de procura e resgate de uma criança pela floresta. Ela brincava de caçar borboletas e morcegos quando se perdeu da trilha. Seja rápido ao manejar pela floresta e identifique traços que sirvam de pistas.",
+    "success_text": "A criança foi encontrada e resgatada. Porém, ela parece ter se tornado um pouco mais pálida e sensível à luz do sol. Talvez devessemos examinar as marcas em seu pescoço.",
+    "error_text": "A criança não foi encontrada. Mas a colônia de morcegos parecia mais agitada do que o normal.",
+    "missed_text": "A criança não foi encontrada. Recebemos relatos de uma grande agitação na colônia de morcegos.",
+    "success_cases": [{ "INT": 2, "DEX": 2 }],
+    "in_success": "vampire_kid_M2",
+    "in_failure": "vampire_kid_R1"
+  },
+  {
+    "id": "vampire_kid_M2",
+    "gravity": 1,
+    "location": "fazenda",
+    "mission_text": "Talvez possamos usar nossos laboratórios para analisar as marcas no pescoço da criança. Precisaremos convencer os cientistas que sabemos o que estamos fazendo.",
+    "success_text": "A análise revelou que a criança foi mordida por um morcego vampiro. Precisaremos realizar o ritual de purificação ainda hoje.",
+    "error_text": "Os laboratórios não se mostraram muito receptivos a nossa presença.",
+    "missed_text": "A criança não foi examinada. Ela parece ainda mais pálida e sensível à luz.",
+    "success_cases": [{ "INT": 3 }, { "CHA": 3 }],
+    "in_success": "vampire_kid_M3",
+    "in_failure": "vampire_kid_R2"
+  },
+  {
+    "id": "vampire_kid_M3",
+    "gravity": 2,
+    "location": "ruinas",
+    "mission_text": "Precisamos realizar o ritual de purificação para impedir que a criança se torne um vampiro completo. O ritual exige um grande esforço físico e mental.",
+    "success_text": "O ritual foi um sucesso! A criança está a salvo para ser picada por seres malignos no futuro!",
+    "error_text": "O ritual falhou e a criança escapou se transformando em morcego.",
+    "missed_text": "O ritual não foi realizado. A criança fugiu se transformando em morcego.",
+    "success_cases": [{ "FOR": 4, "INT": 4 }],
+    "in_failure": "vampire_kid_R2"
+  },
+  {
+    "id": "vampire_kid_R1",
+    "gravity": 2,
+    "location": "floresta",
+    "mission_text": "Pequenos animais foram encontrados mortos, com feridas no pescoço. Temos razão para ligar o caso com a criança desaparecida e a colônia de morcegos. Precisamos de alguém para adentrar a floresta e investigar o que está acontecendo.",
+    "success_text": "Encontramos sinais de um pequeno novo vampiro. Devemos ficar em alerta.",
+    "error_text": "Novamente, os rastros não nos levaram a lugar nenhum.",
+    "missed_text": "Não fomos investigar.",
+    "success_cases": [{ "INT": 3, "FOR": 3 }],
+    "in_success": "vampire_kid_R2",
+    "in_failure": "vampire_kid_R3"
+  },
+  {
+    "id": "vampire_kid_R2",
+    "gravity": 3,
+    "location": "acampamento",
+    "mission_text": "Um pequeno vampiro está atacando o acampamento! Precisamos encontrar uma maneira de parar o ataque e proteger os acampantes.",
+    "success_text": "A criança foi detida e acalmada. Ela está segura e viverá bem... para sempre. Nossos laboratórios concordaram em prover sangue sintético para mantê-la alimentada e segura.",
+    "error_text": "A criança se tornou agressiva e difícil de controlar. Ela conseguiu escapar do acampamento. Mandamos um passe anual aos pais que possam visitá-la no futuro.",
+    "missed_text": "A criança destruiu boa parte do acampamento antes de se cansar e sair voando. Mandamos um passe anual aos pais que possam visitá-la no futuro.",
+    "success_cases": [
+      { "FOR": 4, "DEX": 4 },
+      { "INT": 3, "CHA": 4 }
+    ]
+  },
+  {
+    "id": "vampire_kid_R3",
+    "gravity": 4,
+    "location": "acampamento",
+    "mission_text": "Uma colônia de morcegos e outros animais transformados estão atacando sob domínio de um pequeno vampiro! Precisamos agir de imediato!",
+    "success_text": "O ataque foi contido e os animais foram acalmados. O pequeno vampiro está seguro e viverá bem... para sempre. Nossos laboratórios concordaram em prover sangue sintético para mantê-lo alimentado e seguro.",
+    "error_text": "O ataque dizimou o acampamento por completo. Incontáveis mortos e feridos. É o fim para o parque.",
+    "missed_text": "O ataque dizimou o acampamento por completo. Incontáveis mortos e feridos. É o fim para o parque.",
+    "success_cases": [{ "FOR": 5, "DEX": 5, "INT": 4 }]
+  }
+]
